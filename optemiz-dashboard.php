@@ -32,6 +32,8 @@ function opt_dashboard_init() {
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
 }
 
+//include classes
+
 function opt_dashboard_menu_page() {
 	add_menu_page(
 		__( 'Optemiz Dashboard', 'optemiz' ),
@@ -60,7 +62,6 @@ function opt_get_dashboard_data() {
 		'version' => '',
 		'control_panel_label' => '',
 	];
-	
 
 	$data['sidebar'] = [
 		'box_classes' => [],
@@ -75,6 +76,30 @@ function opt_get_dashboard_data() {
 						'button_url' => 'https://optemiz.com',
 						'button_classes' => ['opt-right-side-bar-span'],
 					]
+				],
+			]
+		]
+	];
+
+	$data['settings'] = [
+		"general" => [
+			"init" => [
+				"fields" => [
+					'name' => '',
+					'type' => 'text',
+					'default_value' => '',
+					'placeholder' => '',
+					'disabled' => false,
+					'required' => false,
+					'min' => '',
+					'max' => '',
+					'step' => '',
+					'label' => '',
+					'description' => '',
+					'css' => '',
+					'id' => '',
+					'classes' => [],
+					'options' => [],
 				],
 			]
 		]
