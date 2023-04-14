@@ -1,9 +1,13 @@
+
 (function($) {
 
     // single select
     $(document).ready(function() {
         $('.opt-input-select').select2();
         $('.js-example-basic-multiple').select2();
+
+        console.log(opt_dashboard_data);
+
 
         var optFieldItems = document.getElementsByClassName("opt-main-content-li");
         var arrOptFiledItems = Array.from(optFieldItems);
@@ -93,6 +97,9 @@
     });
 
 })(jQuery)
+
+
+
 
 
 

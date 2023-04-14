@@ -2,24 +2,22 @@
   "name": "optemiz-dashboard",
   "version": "1.0.0",
   "description": "A simple dashboard module plugin.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wpfeel/faq-for-woocommerce.git"
-  },
-  "keywords": [
-    "woocommerce",
-    "faqs"
-  ],
-  "author": "wpfeel",
+  "author": "optemiz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wpfeel/faq-for-woocommerce/issues"
+    "url": "https://optemiz.com"
   },
-  "homepage": "https://github.com/wpfeel/faq-for-woocommerce#readme",
+  "homepage": "https://optemiz.com",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
@@ -38,9 +36,11 @@
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.5.0",
     "gulp-zip": "^5.1.0",
-    "sass": "^1.43.5"
+    "sass": "^1.43.5",
+    "axios": "^1.3.4"
   },
   "devDependencies": {
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "@wordpress/scripts": "^23.4.0"
   }
 }
