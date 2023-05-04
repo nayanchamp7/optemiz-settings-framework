@@ -2,12 +2,73 @@ import React from 'react';
 
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
+import DashboardContext from '../context/DashboardContext';
+
 import Menu from './Menu';
 import Sidebar from './Sidebar';
+import TabMenu from './TabMenu';
 
 export default function Body() {
 
-    const dashboardContext = useContext(dashboardContext);
+    const dashboardContext = useContext(DashboardContext);
+    const opt_form = dashboardContext.apiData.localData.settings.form;
+
+    useEffect(  () => {
+
+        function menuContents() {
+            let menu_content_area = document.querySelector('.opt-main-contents');
+
+            let menu_content_items = opt_form.items;
+
+            let counter = 0;
+            let menu_content_list = Object.keys(menu_content_items).map( (key) => {
+
+                let menu_content_item = menu_content_items[key];
+
+                let content_classes = ['opt-main-content'];
+
+                if( counter == 0 ) {
+                    content_classes.push('opt-main-content-active');
+                }
+
+                counter++;
+
+                return (
+                    <div className={ content_classes.join(' ') } data-main-content="first">
+                            
+                        <TabMenu menu_item={ menu_content_item }/>
+
+                        <div className="opt-fields-area">
+                            <div data-content="init" className="opt-main-items opt-field-active">
+
+                                <div className="opt-main-item">
+                                    <div className="opt-contents">
+                                        <h4 className="opt-item-heading">Enable front-end for roles</h4>
+                                        <p className="opt-item-para">Select the roles that will have access to the extra options.</p>
+                                    </div>
+                                    <input className="opt-main-input" name="opt_dashboard_data[opt_frontend]" type="text" />
+                                </div>
+                                <div className="opt-main-item">
+                                    <div className="opt-contents">
+                                        <h4 className="opt-item-heading">Enable front-end for roles</h4>
+                                        <p className="opt-item-para">Select the roles that will have access to the extra options.</p>
+                                    </div>
+                                    <input className="opt-main-input" name="opt_dashboard_data[opt_roles]" type="text" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                )
+
+            })
+
+            ReactDOM.render(menu_content_list, menu_content_area);
+        }
+
+        menuContents();
+
+    }, [] )
 
     return (
         <Fragment>
@@ -20,38 +81,10 @@ export default function Body() {
                     
                     <Menu />
                     
-                    <div className="opt-main-contents">
+                    <div className="opt-main-content-area">
 
-                        <div className="opt-main-content opt-main-content-active" data-main-content="first">
-                            
-                            <ul className="opt-main-content-ul">
-                                <li className="opt-main-content-li opt-main-content-li-active" data-list="init">Initialization</li>
-                                <li className="opt-main-content-li" data-list="final">Final total box</li>
-                                <li className="opt-main-content-li" data-list="various">Various</li>
-                            </ul>
+                        <div className='opt-main-contents'></div>
 
-                            <div className="opt-fields-area">
-                                <div data-content="init" className="opt-main-items opt-field-active">
-
-                                    <div className="opt-main-item">
-                                        <div className="opt-contents">
-                                            <h4 className="opt-item-heading">Enable front-end for roles</h4>
-                                            <p className="opt-item-para">Select the roles that will have access to the extra options.</p>
-                                        </div>
-                                        <input className="opt-main-input" name="opt_dashboard_data[opt_frontend]" type="text" />
-                                    </div>
-                                    <div className="opt-main-item">
-                                        <div className="opt-contents">
-                                            <h4 className="opt-item-heading">Enable front-end for roles</h4>
-                                            <p className="opt-item-para">Select the roles that will have access to the extra options.</p>
-                                        </div>
-                                        <input className="opt-main-input" name="opt_dashboard_data[opt_roles]" type="text" />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        
                         <div className="opt-main-items-button">
                             <div className="opt-main-item-button">
                                 <button className="opt-main-content-bottom-btn" type="submit">Save Changes</button>

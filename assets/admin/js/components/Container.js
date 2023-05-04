@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
-import { Fragment, useState, useEffect, createContext } from "@wordpress/element";
+import { Fragment, useState, useEffect } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 
@@ -22,8 +22,8 @@ export default function Container() {
         
         async function fetchAPIData() {
 
-            console.log("very first");
-            console.log(apiData);
+            //console.log("very first");
+            //console.log(apiData);
 
             if( getAPIData ) {
                 //await getData();
@@ -69,12 +69,12 @@ export default function Container() {
 
         let form = document.querySelector('.opt-dashboard-form');
 
-        console.log(Array.from(form.elements));
+        //console.log(Array.from(form.elements));
 
 
         let elements = Array.from(form.elements).filter(tag => ["select", "textarea", "input"].includes(tag.tagName.toLowerCase()));
         elements.forEach( (element) => {
-            console.log(element.value);
+            //console.log(element.value);
         })
 
 

@@ -144,11 +144,12 @@
                     
                 }
             }
-            .opt-main-contents{
+            .opt-main-content-area{
                 width: 595px;
                 margin-left: 8px;
                 background: #FFFFFF;
                 border-radius: 4px 4px 0px 0px;
+
                 .opt-main-content{
                     display: none;
                     &.opt-main-content-active{
@@ -262,6 +263,7 @@
                     }
                 }  
             }
+            
         } 
         .opt-body-right-child{
             display: flex;

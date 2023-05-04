@@ -133,26 +133,95 @@ function opt_get_dashboard_data() {
 		]
 	];
 
-	$data['settings'] = [
-		"general" => [
-			"init" => [
-				"fields" => [
-					'name' => '',
-					'type' => 'text',
-					'default_value' => '',
-					'placeholder' => '',
-					'disabled' => false,
-					'required' => false,
-					'min' => '',
-					'max' => '',
-					'step' => '',
-					'label' => '',
-					'description' => '',
-					'css' => '',
-					'id' => '',
-					'classes' => [],
-					'options' => [],
+	$data['form'] = [
+		"section" => [
+			"label" => __("Control Panel")
+		],
+		"items" => [
+			"order_tips" => [
+				"menu" => [
+					"label" => __("Tips"),
+					"classes" => [],
 				],
+				"tabs" => [
+					"init" => [
+						"fields" => [
+							'name' => '',
+							'type' => 'text',
+							'default_value' => '',
+							'placeholder' => '',
+							'disabled' => false,
+							'required' => false,
+							'min' => '',
+							'max' => '',
+							'step' => '',
+							'label' => '',
+							'description' => '',
+							'css' => '',
+							'id' => '',
+							'classes' => [],
+							'options' => [],
+						],
+					]
+				]
+			],
+			"general" => [
+				"menu" => [
+					"label" => __("General"),
+					"classes" => [],
+				],
+				"tabs" => [
+					"init" => [
+						"menu" => [
+							"label" => __("Initialization"),
+							"classes" => [],
+						],
+						"fields" => [
+							[
+								'name' => '',
+								'type' => 'text',
+								'default_value' => '',
+								'placeholder' => '',
+								'disabled' => false,
+								'required' => false,
+								'min' => '',
+								'max' => '',
+								'step' => '',
+								'label' => '',
+								'description' => '',
+								'css' => '',
+								'id' => '',
+								'classes' => [],
+								'options' => [],
+							]
+						],
+					],
+					"box" => [
+						"menu" => [
+							"label" => __("Final total box"),
+							"classes" => [],
+						],
+						"fields" => [
+							[
+								'name' => '',
+								'type' => 'text',
+								'default_value' => '',
+								'placeholder' => '',
+								'disabled' => false,
+								'required' => false,
+								'min' => '',
+								'max' => '',
+								'step' => '',
+								'label' => '',
+								'description' => '',
+								'css' => '',
+								'id' => '',
+								'classes' => [],
+								'options' => [],
+							]
+						],
+					]
+				]
 			]
 		]
 	];
