@@ -15,7 +15,7 @@ export default function Menu() {
 
     // console.log(dashboardContext);
 
-    
+
     useEffect(  () => {
 
         function menuItems() {
@@ -37,7 +37,7 @@ export default function Menu() {
                 counter++;
 
                 return (
-                    <li className={ menu_item_classes.join(' ') } data-main-menu="first">
+                    <li className={ menu_item_classes.join(' ') } data-main-menu={key} onClick={onClickMenu}>
                         <img src={ opt_dashboard_data.plugin_url + "/assets/images/General.png" } alt="" /><span className="opt-sidebar-text">{ menu_list_item.menu.label }</span>
                     </li>
                 )
@@ -50,15 +50,57 @@ export default function Menu() {
         menuItems();
 
     }, [] )
-    
+
+    function onClickMenu(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        var currentItem = event.target.closest('.sidebar-li');
+
+        var leftSidebarTargetValue = currentItem.dataset.mainMenu;
+
+        // var leftSidebarTargetContent = document.querySelector("[data-main-content="+ leftSidebarTargetValue + "]");
+
+        // var leftContentActive = document.querySelector(".opt-main-content-active");
+
+        // leftContentActive.classList.remove("opt-main-content-active");
+
+        // leftSidebarTargetContent.classList.add("opt-main-content-active");
+
+        // // target content first item active
+        // var tabActiveItem    = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li-active');
+
+        // // when active class is available, remove the active class
+        // if( tabActiveItem ) {
+        //     tabActiveItem.classList.remove('opt-main-content-li-active');
+        // }
+
+        // // get the first tab item of the target menu item
+        // var targetFirstTab   = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li:first-child');
+
+        // // add active class to the first tab of the target menu item
+        // targetFirstTab.classList.add('opt-main-content-li-active');
+
+
+        // selector subtab menu list active item
+        var mainTabActive = document.querySelector(".sidebar-li-active");
+
+        //remove subtab menu list's active class
+        mainTabActive.classList.remove("sidebar-li-active");
+
+        // add active class to the target menu
+        currentItem.classList.add('sidebar-li-active');
+
+    }
+
 
     return (
         <div className="left-sidebar">
             <h4 className="left-sidebar-heading">{ opt_form.section.label }</h4>
-            
+
             <ul className="sidebar-ul">
-                
-                {/* 
+
+                {/*
                 <li className="sidebar-li sidebar-li-active" data-main-menu="first"><img src={ opt_dashboard_data.plugin_url + "/assets/images/General.png" } alt="" /><span className="opt-sidebar-text">General</span></li>
                 <li className="sidebar-li" data-main-menu="second"><img src={ opt_dashboard_data.plugin_url + "/assets/images/style.png" } alt="" /><span className="opt-sidebar-text">Style</span></li>
                 <li className="sidebar-li" data-main-menu="third"><img src={ opt_dashboard_data.plugin_url + "/assets/images/display.png" } alt="" /><span className="opt-sidebar-text">Display</span></li>

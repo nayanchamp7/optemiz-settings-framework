@@ -145,6 +145,10 @@ function opt_get_dashboard_data() {
 				],
 				"tabs" => [
 					"init" => [
+						"menu" => [
+							"label" => __("Initialization"),
+							"classes" => [],
+						],
 						"fields" => [
 							'name' => '',
 							'type' => 'text',
