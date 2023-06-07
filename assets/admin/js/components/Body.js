@@ -7,6 +7,7 @@ import DashboardContext from '../context/DashboardContext';
 import Menu from './Menu';
 import Sidebar from './Sidebar';
 import TabContent from './TabContent';
+import SubmitButtons from './SubmitButtons';
 
 export default function Body() {
 
@@ -42,12 +43,7 @@ export default function Body() {
                         }
                         </div>
 
-                        <div className="opt-main-items-button">
-                            <div className="opt-main-item-button">
-                                <button className="opt-main-content-bottom-btn" type="submit">Save Changes</button>
-                                <a className="opt-main-content-bottom-anchor" href="">Reset Settings</a>
-                            </div>
-                        </div>
+                        <SubmitButtons />
 
                     </div>
                 </div>
