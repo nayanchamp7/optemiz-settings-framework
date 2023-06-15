@@ -34,6 +34,7 @@ if ( ! defined( 'OPT_PLUGIN_PATH' ) ) {
 
 add_action('plugins_loaded', 'opt_dashboard_init');
 function opt_dashboard_init() {
+
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
 }
 
