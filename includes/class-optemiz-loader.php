@@ -1,7 +1,8 @@
 <?php
 
+namespace OptDashboard;
 
-class Optemiz_Loader {
+class OptemizLoader {
 
 
 }

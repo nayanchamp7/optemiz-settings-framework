@@ -1,11 +1,13 @@
 <?php
 
+namespace OptDashboard;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Abstract_Optemiz_Tab
  */
-abstract class Abstract_Optemiz_Tab {
+abstract class AbstractOptemizTab {
 
     /**
      * Sub tab key.

@@ -1,14 +1,16 @@
 <?php
 
+namespace OptDashboard;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class Optemiz_Tab
+ * Class OptemizTab
  */
-class Optemiz_Tab extends Abstract_Optemiz_Tab {
+class OptemizTab extends AbstractOptemizTab {
 
     /**
-     * Optemiz_Tab constructor.
+     * OptemizTab constructor.
      *
      * @param string|null $key  Tab key.
      * @param array|string|null $args  Arguments array.

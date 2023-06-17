@@ -1,0 +1,15 @@
+{
+    "name": "optemiz/dashboard",
+    "autoload": {
+        "psr-4": {
+            "OptDashboard\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nazrul Islam Nayan",
+            "email": "nazrulislamnayan7@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,11 +1,13 @@
 <?php
 
+namespace OptDashboard;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class Optemiz_Dashboard
+ * Class OptemizDashboard
  */
-class Optemiz_Dashboard {
+class OptemizDashboard {
 
     /**
      * Settings values.
@@ -16,7 +18,7 @@ class Optemiz_Dashboard {
 
 
     /**
-     * Optemiz_Dashboard constructor.
+     * OptemizDashboard constructor.
      *
      */
     public function __construct() {

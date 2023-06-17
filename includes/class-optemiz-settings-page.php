@@ -1,14 +1,14 @@
 <?php
 
+namespace OptDashboard;
+
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Optemiz_Settings', false ) ) :
+if ( ! class_exists( 'OptemizSettings', false ) ) :
 
-	abstract class Optemiz_Settings {
+	abstract class OptemizSettings {
 
-		public function __construct() {
-
-		}
+		public function __construct() {}
 
 		abstract public function get_id();
 

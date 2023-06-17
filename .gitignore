@@ -31,3 +31,5 @@ phpcs.*
 ehthumbs.db
 Thumbs.db
 faq-woocommerce.php
+
+/vendor/

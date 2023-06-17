@@ -21,6 +21,7 @@
  * @package Optemiz
  */
 
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'OPT_PLUGIN_URL' ) ) {
@@ -32,8 +33,15 @@ if ( ! defined( 'OPT_PLUGIN_PATH' ) ) {
 	define( 'OPT_PLUGIN_PATH', untrailingslashit(plugin_dir_path(__FILE__)) );
 }
 
+//autoload file
+require_once OPT_PLUGIN_PATH . "/vendor/autoload.php";
+
 add_action('plugins_loaded', 'opt_dashboard_init');
 function opt_dashboard_init() {
+
+	error_log("here");
+
+	new OptDashboard\OptemizDashboard();
 
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
 }

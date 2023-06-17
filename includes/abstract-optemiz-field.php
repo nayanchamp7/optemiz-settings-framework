@@ -1,11 +1,13 @@
 <?php
 
+namespace OptDashboard;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Abstract_Optemiz_Field
  */
-abstract class Abstract_Optemiz_Field {
+abstract class AbstractOptemizField {
 
     /**
      * Field values.
