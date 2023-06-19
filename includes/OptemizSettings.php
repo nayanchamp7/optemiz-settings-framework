@@ -41,16 +41,16 @@ class OptemizSettings {
 	}
 
     /**
-	 * Set settings.
+	 * Set arguments.
 	 *
 	 * @return array
 	 */
-	public static function set($key, $value) {
-        self::$settings['form']['items'][$key]['menu'] = $value;
+	public static function set($args) {
+        self::$settings['args'] = $args;
 
-		self::$settings = apply_filters("filter_opt_settings", self::$settings);
+		//self::$settings = apply_filters("filter_opt_general_settings", self::$settings['args']);
 
-        return self::$_instance;
+        //return self::$_instance;
 	}
 
     /**
@@ -59,29 +59,23 @@ class OptemizSettings {
 	 * @return array
 	 */
 	public static function get() {
-        error_log('class opt settings');
+
+		if( !isset(self::$settings['args']) ) {
+			self::$settings['args'] = [];
+		}
+		
+		if( !isset(self::$settings['header']) ) {
+			self::$settings['header'] = [];
+		}
+
+		if( !isset(self::$settings['sidebar']) ) {
+			self::$settings['sidebar'] = [];
+		}
+
+		if( !isset(self::$settings['form']) ) {
+			self::$settings['form'] = [];
+		}
+
         return self::$settings;
-	}
-
-    /**
-	 * Set header settings.
-	 *
-	 * @return array
-	 */
-	public static function set_header($value) {
-        self::$settings['header'] = $value;
-
-		return apply_filters("filter_opt_header_settings", self::$settings['header']);
-	}
-
-    /**
-	 * Set sidebar settings.
-	 *
-	 * @return array
-	 */
-	public static function set_sidebar($value) {
-        self::$settings['sidebar'] = $value;
-
-		return apply_filters("filter_opt_sidebar_settings", self::$settings['sidebar']);
 	}
 }

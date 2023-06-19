@@ -5,12 +5,12 @@ namespace OptDashboard;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class OptemizSubTab
+ * Class OptemizField
  */
-class OptemizSubTab extends AbstractOptemizTab {
+class OptemizField {
 
     /**
-     * Optemiz_SubTab constructor.
+     * OptemizField constructor.
      *
      * @param string|null $key  Sub tab key.
      * @param array|string|null $args  Arguments array.
@@ -31,18 +31,9 @@ class OptemizSubTab extends AbstractOptemizTab {
 	 *
 	 * @return array
 	 */
-	public static function set($tab_key, $sub_tab_key, $args) {
-
-        //@TODO need to bring default arguments from default method
-        $args = wp_parse_args($args, array(
-			'label' => __("Initialization"),
-			'classes' => [],
-		));
-
+	public static function set($tab_key, $sub_tab_key, $fields) {
         $opt_settings = OptemizSettings::instance();
-        $opt_settings::$settings['form']['items'][$tab_key]['tabs'][$sub_tab_key]['menu'] = $args;
-
-		//return apply_filters("filter_opt_tab_{$tab_key}_{$sub_tab_key}_args", $sub_tab_key, $tab_key, $args );
+        $opt_settings::$settings['form']['items'][$tab_key]['tabs'][$sub_tab_key]['fields'] = $fields;
 	}
 
     /**

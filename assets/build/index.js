@@ -257,9 +257,10 @@ function Menu() {
   //const [apiData, setApiData] = useState({});
 
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
-  const opt_form = dashboardContext.apiData.localData.settings.form;
+  const opt_settings = dashboardContext.apiData.localData.settings;
+  const opt_form = opt_settings.form;
 
-  // console.log(dashboardContext);
+  // console.log(opt_settings);
 
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     function menuItems() {
@@ -329,7 +330,7 @@ function Menu() {
     className: "left-sidebar"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
     className: "left-sidebar-heading"
-  }, opt_form.section.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+  }, opt_settings.args.panel_title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "sidebar-ul"
   }));
 }

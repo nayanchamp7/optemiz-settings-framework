@@ -11,9 +11,10 @@ export default function Menu() {
 
     const dashboardContext = useContext(DashboardContext);
 
-    const opt_form = dashboardContext.apiData.localData.settings.form;
+    const opt_settings  = dashboardContext.apiData.localData.settings;
+    const opt_form      = opt_settings.form;
 
-    // console.log(dashboardContext);
+    // console.log(opt_settings);
 
 
     useEffect(  () => {
@@ -96,7 +97,7 @@ export default function Menu() {
 
     return (
         <div className="left-sidebar">
-            <h4 className="left-sidebar-heading">{ opt_form.section.label }</h4>
+            <h4 className="left-sidebar-heading">{ opt_settings.args.panel_title }</h4>
 
             <ul className="sidebar-ul">
 

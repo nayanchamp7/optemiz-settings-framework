@@ -32,14 +32,18 @@ class OptemizTab extends AbstractOptemizTab {
 	 *
 	 * @return array
 	 */
-	public static function set($key, $value) {
-
-		OptemizSettings::set($key, $value);
+	public static function set($key, $args) {
 
         $defaults = array(
 			'label' => __("General"),
 			'classes' => [],
 		);
+
+		//@TODO need to bring default arguments from default method
+        $args = wp_parse_args($args, $defaults);
+
+		$opt_settings = OptemizSettings::instance();
+        $opt_settings::$settings['form']['items'][$key]['menu'] = $args;
 
 		return apply_filters("filter_opt_tab_{$key}_default_values", $defaults, $key);
 	}

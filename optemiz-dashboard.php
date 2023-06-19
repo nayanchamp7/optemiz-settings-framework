@@ -21,6 +21,7 @@
  * @package Optemiz
  */
 
+use OptDashboard\OptemizDashboard;
 use OptDashboard\OptemizSettings;
 use OptDashboard\OptemizTab;
 use OptDashboard\OptemizSubTab;
@@ -71,26 +72,12 @@ function opt_dashboard_menu_page_cb() {
 function opt_get_dashboard_data() {
 	$data = [];
 
-	OptemizTab::set('order_tips', [
-		"label" => __("Tips"),
-		"classes" => [],
+	OptemizDashboard::setArgs([
+		"panel_title" => __("Control Panel"),
+		"color" => "#680DB4"
 	]);
 
-	OptemizTab::set('general', [
-		"label" => __("General"),
-		"classes" => [],
-	]);
-
-	OptemizSubTab::set('order_tips', 'init' , [
-		"label" => __("Initialization"),
-		"classes" => [],
-	]);
-
-	$opt_settings = OptemizSettings::get();
-	error_log( print_r($opt_settings, true) );
-
-	//@TODO set from different module
-	$data['header'] = [
+	$header_args = [
 		'icon_url' => 'http://optemiz.com/',
 		'heading' => __('Orderly'),
 		'url' => 'http://optemiz.com/',
@@ -107,8 +94,9 @@ function opt_get_dashboard_data() {
 		]
 	];
 
-	//@TODO set from different module
-	$data['sidebar'] = [
+	OptemizDashboard::createHeader([]);
+
+	$sidebar_args = [
 		'box_classes' => [],
 		'items' => [
 			[
@@ -166,104 +154,57 @@ function opt_get_dashboard_data() {
 		]
 	];
 
-	$data['form'] = [
-		"section" => [
-			"label" => __("Control Panel")
-		],
-		"items" => [
-			"order_tips" => [
-				"menu" => [
-					"label" => __("Tips"),
-					"classes" => [],
-				],
-				"tabs" => [
-					"init" => [
-						"menu" => [
-							"label" => __("Initialization"),
-							"classes" => [],
-						],
-						"fields" => [
-							'name' => '',
-							'type' => 'text',
-							'default_value' => '',
-							'placeholder' => '',
-							'disabled' => false,
-							'required' => false,
-							'min' => '',
-							'max' => '',
-							'step' => '',
-							'label' => '',
-							'description' => '',
-							'css' => '',
-							'id' => '',
-							'classes' => [],
-							'options' => [],
-						],
-					]
-				]
-			],
-			"general" => [
-				"menu" => [
-					"label" => __("General"),
-					"classes" => [],
-				],
-				"tabs" => [
-					"init" => [
-						"menu" => [
-							"label" => __("Initialization"),
-							"classes" => [],
-						],
-						"fields" => [
-							[
-								'name' => '',
-								'type' => 'text',
-								'default_value' => '',
-								'placeholder' => '',
-								'disabled' => false,
-								'required' => false,
-								'min' => '',
-								'max' => '',
-								'step' => '',
-								'label' => '',
-								'description' => '',
-								'css' => '',
-								'id' => '',
-								'classes' => [],
-								'options' => [],
-							]
-						],
-					],
-					"box" => [
-						"menu" => [
-							"label" => __("Final total box"),
-							"classes" => [],
-						],
-						"fields" => [
-							[
-								'name' => '',
-								'type' => 'text',
-								'default_value' => '',
-								'placeholder' => '',
-								'disabled' => false,
-								'required' => false,
-								'min' => '',
-								'max' => '',
-								'step' => '',
-								'label' => '',
-								'description' => '',
-								'css' => '',
-								'id' => '',
-								'classes' => [],
-								'options' => [],
-							]
-						],
-					]
-				]
-			]
-		]
-	];
+	OptemizDashboard::createSidebar([]);
 
-	return apply_filters('opt_filter_dashboard_data', $data);
+	OptemizDashboard::createTab('order_tips', [
+		"label" => __("Tips"),
+		"classes" => [],
+	]);
+
+	OptemizDashboard::createSubTab('order_tips', 'init', [
+		"label" => __("Initialization"),
+		"classes" => [],
+	]);
+
+	OptemizDashboard::createOptions('order_tips', 'init', [
+		'opt_first_text' => [
+			'type' => 'text',
+			'label' => '',
+			'default_value' => '',
+			'placeholder' => '',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'description' => '',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
+		'opt_second_text' => [
+			'type' => 'textarea',
+			'label' => '',
+			'default_value' => '',
+			'placeholder' => '',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'description' => '',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		]
+	]);
+
+	// get value
+	$opt_settings = OptemizSettings::get();
+
+	return apply_filters('opt_filter_dashboard_data', $opt_settings);
 }
 
 function opt_admin_enqueue_scripts( $hook ) {
