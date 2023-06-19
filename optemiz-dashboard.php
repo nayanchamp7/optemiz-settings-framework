@@ -21,6 +21,9 @@
  * @package Optemiz
  */
 
+use OptDashboard\OptemizSettings;
+use OptDashboard\OptemizTab;
+use OptDashboard\OptemizSubTab;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,6 +47,7 @@ function opt_dashboard_init() {
 	new OptDashboard\OptemizDashboard();
 
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
+	add_action( 'admin_enqueue_scripts', 'opt_admin_enqueue_scripts' );
 }
 
 //include classes
@@ -67,6 +71,25 @@ function opt_dashboard_menu_page_cb() {
 function opt_get_dashboard_data() {
 	$data = [];
 
+	OptemizTab::set('order_tips', [
+		"label" => __("Tips"),
+		"classes" => [],
+	]);
+
+	OptemizTab::set('general', [
+		"label" => __("General"),
+		"classes" => [],
+	]);
+
+	OptemizSubTab::set('order_tips', 'init' , [
+		"label" => __("Initialization"),
+		"classes" => [],
+	]);
+
+	$opt_settings = OptemizSettings::get();
+	error_log( print_r($opt_settings, true) );
+
+	//@TODO set from different module
 	$data['header'] = [
 		'icon_url' => 'http://optemiz.com/',
 		'heading' => __('Orderly'),
@@ -84,6 +107,7 @@ function opt_get_dashboard_data() {
 		]
 	];
 
+	//@TODO set from different module
 	$data['sidebar'] = [
 		'box_classes' => [],
 		'items' => [
@@ -280,4 +304,4 @@ function opt_admin_enqueue_scripts( $hook ) {
 		'settings' 		=> opt_get_dashboard_data(),
 	]);
 }
-add_action( 'admin_enqueue_scripts', 'opt_admin_enqueue_scripts' );
+

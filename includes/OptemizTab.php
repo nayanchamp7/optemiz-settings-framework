@@ -32,13 +32,16 @@ class OptemizTab extends AbstractOptemizTab {
 	 *
 	 * @return array
 	 */
-	protected function set() {
+	public static function set($key, $value) {
+
+		OptemizSettings::set($key, $value);
+
         $defaults = array(
 			'label' => __("General"),
 			'classes' => [],
 		);
 
-		return apply_filters("filter_opt_tab_{$this->key}_default_values", $defaults, $this->key);
+		return apply_filters("filter_opt_tab_{$key}_default_values", $defaults, $key);
 	}
 
     /**

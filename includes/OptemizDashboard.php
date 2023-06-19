@@ -16,12 +16,13 @@ class OptemizDashboard {
      */
     public $settings;
 
-
     /**
      * OptemizDashboard constructor.
      *
      */
     public function __construct() {
+
+        error_log("class opt dashboard");
 
         if( empty($this->settings) ) {
             $this->settings['header']   = [];

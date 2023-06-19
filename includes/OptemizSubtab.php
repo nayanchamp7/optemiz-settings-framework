@@ -27,6 +27,25 @@ class OptemizSubTab extends AbstractOptemizTab {
     }
 
     /**
+	 * Set Sub Tab.
+	 *
+	 * @return array
+	 */
+	public static function set($tab_key, $sub_tab_key, $args) {
+
+        //@TODO need to bring default arguments from default method
+        $args = wp_parse_args($args, array(
+			'label' => __("Initialization"),
+			'classes' => [],
+		));
+
+        $opt_settings = OptemizSettings::instance();
+        $opt_settings::$settings['form']['items'][$tab_key]['tabs'][$sub_tab_key]['menu'] = $args;
+
+		return apply_filters("filter_opt_tab_{$tab_key}_{$sub_tab_key}_args", $sub_tab_key, $tab_key, $args );
+	}
+
+    /**
 	 * Returns Field's Default Value.
 	 *
 	 * @return array
