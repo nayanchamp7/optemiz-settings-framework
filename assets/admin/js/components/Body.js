@@ -4,7 +4,7 @@ import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 
-import Menu from './Menu';
+import Tab from './Tab';
 import Sidebar from './Sidebar';
 import TabContent from './TabContent';
 import SubmitButtons from './SubmitButtons';
@@ -28,7 +28,7 @@ export default function Body() {
             >
                 <div className="opt-body-left-child">
 
-                    <Menu />
+                    <Tab />
 
                     <div className="opt-main-content-area">
 

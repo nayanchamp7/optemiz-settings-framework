@@ -166,39 +166,30 @@ function opt_get_dashboard_data() {
 		"classes" => [],
 	]);
 
-	OptemizDashboard::createOptions('order_tips', 'init', [
-		'opt_first_text' => [
-			'type' => 'text',
-			'label' => '',
-			'default_value' => '',
-			'placeholder' => '',
-			'disabled' => false,
-			'required' => false,
-			'min' => '',
-			'max' => '',
-			'step' => '',
-			'description' => '',
-			'css' => '',
-			'id' => '',
-			'classes' => [],
-			'options' => [],
-		],
-		'opt_second_text' => [
-			'type' => 'textarea',
-			'label' => '',
-			'default_value' => '',
-			'placeholder' => '',
-			'disabled' => false,
-			'required' => false,
-			'min' => '',
-			'max' => '',
-			'step' => '',
-			'description' => '',
-			'css' => '',
-			'id' => '',
-			'classes' => [],
-			'options' => [],
-		]
+	OptemizDashboard::createSubTab('order_tips', 'style', [
+		"label" => __("Style"),
+		"classes" => [],
+	]);
+
+	OptemizDashboard::createSubTab('order_tips', 'help', [
+		"label" => __("Help"),
+		"classes" => [],
+	]);
+
+	// General Tab
+	OptemizDashboard::createTab('barcode', [
+		"label" => __("Barcode"),
+		"classes" => [],
+	]);
+
+	OptemizDashboard::createSubTab('barcode', 'init', [
+		"label" => __("Init"),
+		"classes" => [],
+	]);
+
+	OptemizDashboard::createSubTab('barcode', 'mapping', [
+		"label" => __("Mapping"),
+		"classes" => [],
 	]);
 
 	// get value

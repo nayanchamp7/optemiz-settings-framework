@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom'
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
-
-import TabMenu from './TabMenu';
+import SubTab from './SubTab';
 
 export default function TabContent(props) {
 
@@ -32,7 +31,7 @@ export default function TabContent(props) {
     return (
         <div className={ content_classes.join(' ') } data-main-content={ props.item_type }>
 
-            <TabMenu menu_item={ props.item }/>
+            <SubTab menu_item={ props.item }/>
 
             <div className="opt-fields-area">
                 <div data-content="init" className="opt-main-items opt-field-active">

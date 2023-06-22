@@ -5,7 +5,7 @@ import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 
-export default function Menu() {
+export default function Tab() {
 
     //const [apiData, setApiData] = useState({});
 
@@ -14,12 +14,9 @@ export default function Menu() {
     const opt_settings  = dashboardContext.apiData.localData.settings;
     const opt_form      = opt_settings.form;
 
-    // console.log(opt_settings);
-
-
     useEffect(  () => {
 
-        function menuItems() {
+        function tabItems() {
             let menu_sidebar = document.querySelector('.left-sidebar .sidebar-ul');
 
             let menu_list_items = opt_form.items;
@@ -38,7 +35,7 @@ export default function Menu() {
                 counter++;
 
                 return (
-                    <li className={ menu_item_classes.join(' ') } data-main-menu={key} onClick={onClickMenu}>
+                    <li className={ menu_item_classes.join(' ') } data-main-menu={key} onClick={onClickTab}>
                         <img src={ opt_dashboard_data.plugin_url + "/assets/images/General.png" } alt="" /><span className="opt-sidebar-text">{ menu_list_item.menu.label }</span>
                     </li>
                 )
@@ -48,43 +45,45 @@ export default function Menu() {
             ReactDOM.render(menu_list, menu_sidebar);
         }
 
-        menuItems();
+        tabItems();
 
     }, [] )
 
-    function onClickMenu(event){
+    function onClickTab(event){
         event.preventDefault();
         event.stopPropagation();
 
-        var currentItem = event.target.closest('.sidebar-li');
+        let $this = event.target;
 
-        var leftSidebarTargetValue = currentItem.dataset.mainMenu;
+        let currentItem = $this.closest('.sidebar-li');
 
-        // var leftSidebarTargetContent = document.querySelector("[data-main-content="+ leftSidebarTargetValue + "]");
+        let leftSidebarTargetValue = currentItem.dataset.mainMenu;
 
-        // var leftContentActive = document.querySelector(".opt-main-content-active");
+        let leftSidebarTargetContent = document.querySelector("[data-main-content="+ leftSidebarTargetValue + "]");
 
-        // leftContentActive.classList.remove("opt-main-content-active");
+        let leftContentActive = document.querySelector(".opt-main-content-active");
 
-        // leftSidebarTargetContent.classList.add("opt-main-content-active");
+        leftContentActive.classList.remove("opt-main-content-active");
 
-        // // target content first item active
-        // var tabActiveItem    = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li-active');
+        leftSidebarTargetContent.classList.add("opt-main-content-active");
 
-        // // when active class is available, remove the active class
-        // if( tabActiveItem ) {
-        //     tabActiveItem.classList.remove('opt-main-content-li-active');
-        // }
+        // target content first item active
+        let tabActiveItem    = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li-active');
 
-        // // get the first tab item of the target menu item
-        // var targetFirstTab   = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li:first-child');
+        // when active class is available, remove the active class
+        if( tabActiveItem ) {
+            tabActiveItem.classList.remove('opt-main-content-li-active');
+        }
 
-        // // add active class to the first tab of the target menu item
-        // targetFirstTab.classList.add('opt-main-content-li-active');
+        // get the first tab item of the target menu item
+        let targetFirstTab   = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li:first-child');
+
+        // add active class to the first tab of the target menu item
+        targetFirstTab.classList.add('opt-main-content-li-active');
 
 
         // selector subtab menu list active item
-        var mainTabActive = document.querySelector(".sidebar-li-active");
+        let mainTabActive = document.querySelector(".sidebar-li-active");
 
         //remove subtab menu list's active class
         mainTabActive.classList.remove("sidebar-li-active");
@@ -93,7 +92,6 @@ export default function Menu() {
         currentItem.classList.add('sidebar-li-active');
 
     }
-
 
     return (
         <div className="left-sidebar">
