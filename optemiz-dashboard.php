@@ -166,9 +166,83 @@ function opt_get_dashboard_data() {
 		"classes" => [],
 	]);
 
+	OptemizDashboard::createOptions('order_tips', 'init', [
+		[
+			'name' => 'order_tips_first_name',
+			'type' => 'text',
+			'default_value' => 'First Name',
+			'placeholder' => '',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'label' => 'Enable first name for roles',
+			'description' => 'Your first name should be here.',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
+		[
+			'name' => 'order_tips_last_name',
+			'type' => 'text',
+			'default_value' => 'Last Name',
+			'placeholder' => 'Your second name should be here.',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'label' => 'Enable last name for roles',
+			'description' => 'Your second name should be here.',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
+	]);
+
 	OptemizDashboard::createSubTab('order_tips', 'style', [
 		"label" => __("Style"),
 		"classes" => [],
+	]);
+
+	OptemizDashboard::createOptions('order_tips', 'style', [
+		[
+			'name' => 'order_tips_font_size',
+			'type' => 'text',
+			'default_value' => '24px',
+			'placeholder' => 'font size here',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'label' => 'Enter font size',
+			'description' => 'Your font size should be here.',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
+		[
+			'name' => 'order_tips_border_width',
+			'type' => 'text',
+			'default_value' => '14px',
+			'placeholder' => 'border width here.',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'label' => 'Enable border width',
+			'description' => 'Your border width should be here.',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
 	]);
 
 	OptemizDashboard::createSubTab('order_tips', 'help', [

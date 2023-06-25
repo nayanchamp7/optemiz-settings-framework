@@ -19,7 +19,7 @@ export default function Container() {
 
 
     useEffect( () => {
-        
+
         async function fetchAPIData() {
 
             //console.log("very first");
@@ -55,7 +55,7 @@ export default function Container() {
                 return response.json();
             })
             .then( function(response) {
-                console.log(response);
+                //console.log(response);
 
                 setApiData(response);
             })

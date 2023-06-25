@@ -10,13 +10,13 @@ export default function Header() {
 
     let opt_header = opt_dashboard_data.settings.header;
 
-    console.log(opt_dashboard_data);
+    //console.log(opt_dashboard_data);
 
     useEffect(  () => {
 
 
     }, [] )
-    
+
 
     return (
         <header className="opt-top-bar">
@@ -31,6 +31,6 @@ export default function Header() {
                 </a>
             </div>
         </header>
-    
+
     )
 }

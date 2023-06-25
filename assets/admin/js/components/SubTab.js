@@ -13,7 +13,7 @@ export default function SubTab(props) {
 
     //const opt_form = dashboardContext.apiData.localData.settings.form;
 
-    console.log(tabs);
+    //console.log(tabs);
 
 
     useEffect(  () => {
@@ -62,7 +62,7 @@ export default function SubTab(props) {
 
                     let tab_item = tabs[tab_item_key];
 
-                    console.log(tab_item.menu.label);
+                    // console.log(tab_item.menu.label);
 
                     let submenu_item_classes = ['opt-main-content-li'];
                     if( counter == 0 ) {
@@ -72,7 +72,7 @@ export default function SubTab(props) {
                     counter++;
 
                     return(
-                        <li className={ submenu_item_classes.join(' ') } data-list="init" key={key} onClick={onClickSubTab}>{ tab_item.menu.label }</li>
+                        <li className={ submenu_item_classes.join(' ') } data-list={tab_item_key} key={key} onClick={onClickSubTab}>{ tab_item.menu.label }</li>
                     )
                 })
             }

@@ -6,7 +6,7 @@
         $('.opt-input-select').select2();
         $('.js-example-basic-multiple').select2();
 
-        console.log(opt_dashboard_data);
+        //console.log(opt_dashboard_data);
 
 
         var optFieldItems = document.getElementsByClassName("opt-main-content-li");
