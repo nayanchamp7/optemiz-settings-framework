@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
+import NotificationSystem from 'react-notification-system';
 
-import { Fragment, useState, useEffect } from "@wordpress/element";
+import { Fragment, useState, useEffect, createRef } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 
@@ -10,6 +11,7 @@ import Header from './Header';
 import Body from './Body';
 
 export default function Container() {
+    let notificationSystem = createRef();
 
     const [apiData, setApiData] = useState({
         localData: opt_dashboard_data,
@@ -67,15 +69,26 @@ export default function Container() {
     function saveData(event) {
         event.preventDefault();
 
-        let form = document.querySelector('.opt-dashboard-form');
+        console.log("submited");
+
+        const notification = notificationSystem.current;
+        notification.addNotification({
+            title: 'Success!', //@TODO need to be dynamic
+            message: 'Settings Saved', //@TODO need to be dynamic
+            level: 'success',
+            position: 'br',
+            autoDismiss: 2,
+        });
+
+        //let form = document.querySelector('.opt-dashboard-form');
 
         //console.log(Array.from(form.elements));
 
 
-        let elements = Array.from(form.elements).filter(tag => ["select", "textarea", "input"].includes(tag.tagName.toLowerCase()));
-        elements.forEach( (element) => {
-            //console.log(element.value);
-        })
+        // let elements = Array.from(form.elements).filter(tag => ["select", "textarea", "input"].includes(tag.tagName.toLowerCase()));
+        // elements.forEach( (element) => {
+        //     //console.log(element.value);
+        // })
 
 
 
@@ -110,10 +123,47 @@ export default function Container() {
 
     }
 
+    let NotiStyle = {
+        Containers: {
+            DefaultStyle: {
+                width: '260px',
+            },
+            br: {
+                top: 'auto',
+                bottom: '30px',
+                left: 'auto',
+                right: '50px'
+            },
+        },
+        NotificationItem: {
+            DefaultStyle: {
+                borderTop: '',
+                borderLeft: '5px solid #4abe61',
+                margin: '10px 0px 0px 0px',
+                padding: '15px',
+                borderRadius: '5px',
+            },
+            success: {
+                color: '#5B616F',
+                backgroundColor: '#fff',
+            }
+        },
+        Title: {
+            DefaultStyle: {
+                fontSize: '16px',
+                fontWeight: '600'
+            },
+            success: {
+                color: '#24A148'
+            },
+        }
+    }
+
     return (
         <DashboardContext.Provider value={{apiData, saveData}}>
             <Header />
             <Body />
+            <NotificationSystem ref={notificationSystem} style={NotiStyle}/>
 
         </DashboardContext.Provider>
     );
