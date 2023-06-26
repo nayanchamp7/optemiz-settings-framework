@@ -5,6 +5,10 @@ import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 import Text from '../components/Fields/Text';
+import Number from '../components/Fields/Number';
+import Radio from '../components/Fields/Radio';
+import Checkbox from '../components/Fields/Checkbox';
+import Select from '../components/Fields/Select';
 
 export default function Field(props) {
 
@@ -24,6 +28,22 @@ export default function Field(props) {
         if( type == 'text' ) {
             return (
                 <Text data={field_item} />
+            );
+        }else if( type == 'number' ) {
+            return (
+                <Number data={field_item} />
+            );
+        }else if( type == 'radio' ) {
+            return (
+                <Radio data={field_item} />
+            );
+        }else if( type == 'checkbox' ) {
+            return (
+                <Checkbox data={field_item} />
+            );
+        }else if( type == 'select' ) {
+            return (
+                <Select data={field_item} />
             );
         }
     }

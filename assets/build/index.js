@@ -248,6 +248,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
 /* harmony import */ var _components_Fields_Text__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Fields/Text */ "./assets/admin/js/components/Fields/Text.js");
+/* harmony import */ var _components_Fields_Number__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Fields/Number */ "./assets/admin/js/components/Fields/Number.js");
+/* harmony import */ var _components_Fields_Radio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Fields/Radio */ "./assets/admin/js/components/Fields/Radio.js");
+/* harmony import */ var _components_Fields_Checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Fields/Checkbox */ "./assets/admin/js/components/Fields/Checkbox.js");
+/* harmony import */ var _components_Fields_Select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Fields/Select */ "./assets/admin/js/components/Fields/Select.js");
+
+
+
+
 
 
 
@@ -266,6 +274,22 @@ function Field(props) {
   function displayField(type) {
     if (type == 'text') {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Text__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        data: field_item
+      });
+    } else if (type == 'number') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Number__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        data: field_item
+      });
+    } else if (type == 'radio') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Radio__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        data: field_item
+      });
+    } else if (type == 'checkbox') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Checkbox__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        data: field_item
+      });
+    } else if (type == 'select') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Select__WEBPACK_IMPORTED_MODULE_8__["default"], {
         data: field_item
       });
     }
@@ -353,6 +377,179 @@ function FieldContent(props) {
 
 /***/ }),
 
+/***/ "./assets/admin/js/components/Fields/Checkbox.js":
+/*!*******************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Checkbox.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Checkbox; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function Checkbox(props) {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
+  let data = props.data;
+  if (Object.keys(data.options).length === 0) {
+    return;
+  }
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "opt-checkbox-list"
+  }, Object.keys(data.options).map((option_key, index) => {
+    let label = data.options[option_key];
+
+    //@TODO need to be dynamic values after default value parsing
+    let isChecked = Object.values(data.default_value).includes(option_key) ? 'checked' : '';
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      name: data.name + "[]",
+      value: option_key,
+      checked: isChecked,
+      type: "checkbox"
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, label));
+  }));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Fields/Number.js":
+/*!*****************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Number.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Number; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function Number(props) {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
+  let data = props.data;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: "opt-main-input",
+    name: data.name,
+    value: data.value ? data.value : data.default_value,
+    placeholder: data.placeholder,
+    type: "number"
+  }));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Fields/Radio.js":
+/*!****************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Radio.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Radio; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function Radio(props) {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
+  let data = props.data;
+  if (Object.keys(data.options).length === 0) {
+    return;
+  }
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "opt-radio-list"
+  }, Object.keys(data.options).map((option_key, index) => {
+    let label = data.options[option_key];
+
+    //@TODO need to be dynamic values after default value parsing
+    let isChecked = data.default_value === option_key ? 'checked' : '';
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      name: data.name,
+      value: option_key,
+      checked: isChecked,
+      type: "radio"
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, label));
+  }));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Fields/Select.js":
+/*!*****************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Select.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Select; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function Select(props) {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
+  let data = props.data;
+  if (Object.keys(data.options).length === 0) {
+    return;
+  }
+
+  //@TODO apply select 2 here
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
+    className: "opt-select-list",
+    name: data.name + "[]",
+    multiple: data.multiple
+  }, Object.keys(data.options).map((option_key, index) => {
+    let option_label = data.options[option_key];
+
+    //@TODO need to be dynamic values after default value parsing
+    let isSelected = Object.values(data.default_value).includes(option_key) ? 'selected' : '';
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+      value: option_key,
+      selected: isSelected
+    }, option_label);
+  }));
+}
+
+/***/ }),
+
 /***/ "./assets/admin/js/components/Fields/Text.js":
 /*!***************************************************!*\
   !*** ./assets/admin/js/components/Fields/Text.js ***!
@@ -377,7 +574,6 @@ __webpack_require__.r(__webpack_exports__);
 function Text(props) {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
-  console.log(data);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     className: "opt-main-input",
     name: data.name,

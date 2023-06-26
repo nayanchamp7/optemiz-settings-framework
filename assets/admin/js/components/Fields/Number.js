@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
-export default function Text(props) {
+export default function Number(props) {
 
     useEffect(  () => {
 
@@ -18,7 +18,7 @@ export default function Text(props) {
                 name={data.name}
                 value={ data.value ? data.value : data.default_value }
                 placeholder={data.placeholder}
-                type="text" />
+                type="number" />
         </>
     )
 }
