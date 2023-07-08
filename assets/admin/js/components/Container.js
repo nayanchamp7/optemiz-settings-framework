@@ -17,8 +17,10 @@ export default function Container() {
         localData: opt_dashboard_data,
         settingsValue: {}
     });
-    const [getAPIData, setGetAPIData] = useState(true);
 
+    const [dataValue, setDataValue] = useState([]);
+
+    const [getAPIData, setGetAPIData] = useState(true);
 
     useEffect( () => {
 
@@ -123,6 +125,13 @@ export default function Container() {
 
     }
 
+    function onChangeInput(event) {
+        event.preventDefault();
+
+        console.log("inside on change input");
+        console.log(event.target.value);
+    }
+
     let NotiStyle = {
         Containers: {
             DefaultStyle: {
@@ -160,7 +169,9 @@ export default function Container() {
     }
 
     return (
-        <DashboardContext.Provider value={{apiData, saveData}}>
+        <DashboardContext.Provider
+            value={{apiData, saveData, dataValue, onChangeInput}}
+        >
             <Header />
             <Body />
             <NotificationSystem ref={notificationSystem} style={NotiStyle}/>

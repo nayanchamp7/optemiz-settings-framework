@@ -94,6 +94,7 @@ function Container() {
     localData: opt_dashboard_data,
     settingsValue: {}
   });
+  const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [getAPIData, setGetAPIData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     async function fetchAPIData() {
@@ -181,6 +182,11 @@ function Container() {
     // }
   }
 
+  function onChangeInput(event) {
+    event.preventDefault();
+    console.log("inside on change input");
+    console.log(event.target.value);
+  }
   let NotiStyle = {
     Containers: {
       DefaultStyle: {
@@ -219,7 +225,9 @@ function Container() {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_4__["default"].Provider, {
     value: {
       apiData,
-      saveData
+      saveData,
+      dataValue,
+      onChangeInput
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Header__WEBPACK_IMPORTED_MODULE_5__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Body__WEBPACK_IMPORTED_MODULE_6__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)((react_notification_system__WEBPACK_IMPORTED_MODULE_3___default()), {
     ref: notificationSystem,
@@ -567,11 +575,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
+
 
 
 
 
 function Text(props) {
+  const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
@@ -579,6 +590,7 @@ function Text(props) {
     name: data.name,
     value: data.value ? data.value : data.default_value,
     placeholder: data.placeholder,
+    onChange: dashboardContext.onChangeInput,
     type: "text"
   }));
 }

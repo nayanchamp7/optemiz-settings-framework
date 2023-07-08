@@ -27,7 +27,7 @@ export default function Field(props) {
     function displayField(type) {
         if( type == 'text' ) {
             return (
-                <Text data={field_item} />
+                <Text data={field_item}/>
             );
         }else if( type == 'number' ) {
             return (
