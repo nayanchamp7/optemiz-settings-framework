@@ -381,7 +381,7 @@ function opt_admin_enqueue_scripts( $hook ) {
         'nonce'         => wp_create_nonce( 'opt_admin_data' ),
 		'plugin_url' 	=> OPT_PLUGIN_URL,
 		'plugin_path' 	=> OPT_PLUGIN_PATH,
-		'settings' 		=> opt_get_dashboard_data(),
+		//'settings' 		=> opt_get_dashboard_data(),
 	]);
 }
 

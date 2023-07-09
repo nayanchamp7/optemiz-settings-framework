@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import NotificationSystem from 'react-notification-system';
 
-import { Fragment, useState, useEffect, createRef } from "@wordpress/element";
+import { Fragment, useState, useEffect, createRef, useRef } from "@wordpress/element";
 
 import DashboardContext from '../context/DashboardContext';
 
@@ -12,31 +12,28 @@ import Body from './Body';
 
 export default function Container() {
     let notificationSystem = createRef();
+    const runDataRef = useRef(false);
 
     const [apiData, setApiData] = useState({
         localData: opt_dashboard_data,
         settingsValue: {}
     });
 
-    const [dataValue, setDataValue] = useState([]);
+    const [dataValue, setDataValue] = useState({});
+    const [runData, setRunData] = useState(true);
+    const [runX, setRunX] = useState('one');
 
-    const [getAPIData, setGetAPIData] = useState(true);
+    useEffect(() => {
 
-    useEffect( () => {
+        if( runData ) {
+            //fetchAPIData();
 
-        async function fetchAPIData() {
+            console.log('hello data');
 
-            //console.log("very first");
-            //console.log(apiData);
-
-            if( getAPIData ) {
-                //await getData();
-            }
+            setRunData(false);
         }
 
-        fetchAPIData();
-
-    }, [getAPIData] )
+    }, [runData])
 
     async function getData(url = '') {
 
@@ -66,6 +63,77 @@ export default function Container() {
         ]);
 
         setGetAPIData(false);
+    }
+
+    async function fetchAPIData() {
+
+        //if( runData && !runDataRef.current ) {
+            console.log(runData);
+
+            let default_data = dataValue;
+
+            console.log(dataValue);
+
+            if( Object.keys(dataValue).length == 0 ) {
+                console.log('heee');
+                default_data = await optGetDefaultData();
+            }else {
+                //await getData();
+            }
+
+            let dummy = [1, 3];
+            console.log(default_data);
+            console.log(typeof dummy);
+
+            setDataValue(default_data);
+            setRunData(false);
+            runDataRef.current = true;
+            // setRunX('seven');
+
+            //console.log(dataValue);
+        //}
+    }
+
+    async function optGetDefaultData() {
+        let field_data = {};
+        let items = opt_dashboard_data.settings.form.items;
+
+        console.log('cool');
+
+        if( Object.keys(items).length > 0 ) {
+            Object.keys(items).map( (items_key) => {
+                let item = items[items_key];
+                if( 'tabs' in item ) {
+                    let tabs = item.tabs; //@TODO need to check `tabs` exists
+
+                    Object.keys(tabs).map( (tab_key) => {
+
+                        if( 'fields' in tabs[tab_key] ) {
+                            let fields = tabs[tab_key].fields; //@TODO need to check `fields` exists
+
+                            Object.keys(fields).map( (field_key) => {
+                                let field           = fields[field_key];
+
+                                if( 'name' in field && 'default_value' in field ) {
+                                    let name            = field.name;
+                                    let default_value   = field.default_value;
+
+                                    field_data[name] = default_value;
+                                }
+
+                            });
+                        }
+
+                    });
+                }
+
+            });
+
+            // console.log(field_data);
+
+        }
+
+        return field_data;
     }
 
     function saveData(event) {
@@ -172,9 +240,10 @@ export default function Container() {
         <DashboardContext.Provider
             value={{apiData, saveData, dataValue, onChangeInput}}
         >
-            <Header />
-            <Body />
-            <NotificationSystem ref={notificationSystem} style={NotiStyle}/>
+            {/* <Header />
+            <Body go={runData}/>
+            <NotificationSystem ref={notificationSystem} style={NotiStyle}/> */}
+            <h1>Hello Dashboard</h1>
 
         </DashboardContext.Provider>
     );

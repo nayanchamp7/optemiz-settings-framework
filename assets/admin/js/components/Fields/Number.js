@@ -5,10 +5,6 @@ import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 export default function Number(props) {
 
-    useEffect(  () => {
-
-    }, [] )
-
     let data  = props.data;
 
     return (

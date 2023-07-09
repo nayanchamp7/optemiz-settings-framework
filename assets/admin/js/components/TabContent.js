@@ -14,10 +14,6 @@ export default function TabContent(props) {
 
     //const opt_form = dashboardContext.apiData.localData.settings.form;
 
-    useEffect(  () => {
-
-    }, [] )
-
     let content_classes = ['opt-main-content'];
 
     if( props.counter == 0 ) {

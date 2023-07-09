@@ -8,11 +8,9 @@ export default function Text(props) {
 
     const dashboardContext = useContext(DashboardContext);
 
-    useEffect(  () => {
-
-    }, [] )
-
     let data  = props.data;
+
+    // console.log('text js');
 
     return (
         <>

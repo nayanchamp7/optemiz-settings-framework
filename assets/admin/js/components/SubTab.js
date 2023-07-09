@@ -16,11 +16,6 @@ export default function SubTab(props) {
     //console.log(tabs);
 
 
-    useEffect(  () => {
-
-    }, [] )
-
-
     function onClickSubTab(event){
         event.preventDefault();
 

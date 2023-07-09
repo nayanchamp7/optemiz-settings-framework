@@ -15,10 +15,6 @@ export default function Body() {
     const opt_form = dashboardContext.apiData.localData.settings.form;
     let menu_content_items = opt_form.items;
 
-    useEffect(  () => {
-
-    }, [] )
-
     return (
         <Fragment>
             <form

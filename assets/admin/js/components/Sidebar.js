@@ -8,9 +8,6 @@ export default function Sidebar() {
 
     let opt_sidebar = opt_dashboard_data.settings.sidebar;
 
-    useEffect(  () => {
-    }, [] )
-
     function sidebarItems() {
 
         let items = opt_sidebar.items.map( (item) => {
@@ -41,11 +38,11 @@ export default function Sidebar() {
 
         return items;
     }
-    
+
 
     return (
         <div className="opt-body-right-child">
-            
+
             { sidebarItems() }
 
         </div>

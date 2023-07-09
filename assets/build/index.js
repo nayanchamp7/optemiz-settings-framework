@@ -33,7 +33,6 @@ function Body() {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
   const opt_form = dashboardContext.apiData.localData.settings.form;
   let menu_content_items = opt_form.items;
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
     className: "opt-body opt-dashboard-form",
     onSubmit: dashboardContext.saveData,
@@ -90,23 +89,22 @@ __webpack_require__.r(__webpack_exports__);
 
 function Container() {
   let notificationSystem = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createRef)();
+  const runDataRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
   const [apiData, setApiData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
     localData: opt_dashboard_data,
     settingsValue: {}
   });
-  const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [getAPIData, setGetAPIData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [runData, setRunData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [runX, setRunX] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('one');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    async function fetchAPIData() {
-      //console.log("very first");
-      //console.log(apiData);
+    if (runData) {
+      //fetchAPIData();
 
-      if (getAPIData) {
-        //await getData();
-      }
+      console.log('hello data');
+      setRunData(false);
     }
-    fetchAPIData();
-  }, [getAPIData]);
+  }, [runData]);
   async function getData() {
     let url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     if (!opt_dashboard_data.homeurl) {
@@ -128,6 +126,61 @@ function Container() {
       setApiData(response);
     })]);
     setGetAPIData(false);
+  }
+  async function fetchAPIData() {
+    //if( runData && !runDataRef.current ) {
+    console.log(runData);
+    let default_data = dataValue;
+    console.log(dataValue);
+    if (Object.keys(dataValue).length == 0) {
+      console.log('heee');
+      default_data = await optGetDefaultData();
+    } else {
+      //await getData();
+    }
+    let dummy = [1, 3];
+    console.log(default_data);
+    console.log(typeof dummy);
+    setDataValue(default_data);
+    setRunData(false);
+    runDataRef.current = true;
+    // setRunX('seven');
+
+    //console.log(dataValue);
+    //}
+  }
+
+  async function optGetDefaultData() {
+    let field_data = {};
+    let items = opt_dashboard_data.settings.form.items;
+    console.log('cool');
+    if (Object.keys(items).length > 0) {
+      Object.keys(items).map(items_key => {
+        let item = items[items_key];
+        if ('tabs' in item) {
+          let tabs = item.tabs; //@TODO need to check `tabs` exists
+
+          Object.keys(tabs).map(tab_key => {
+            if ('fields' in tabs[tab_key]) {
+              let fields = tabs[tab_key].fields; //@TODO need to check `fields` exists
+
+              Object.keys(fields).map(field_key => {
+                let field = fields[field_key];
+                if ('name' in field && 'default_value' in field) {
+                  let name = field.name;
+                  let default_value = field.default_value;
+                  field_data[name] = default_value;
+                }
+              });
+            }
+          });
+        }
+      });
+
+      // console.log(field_data);
+    }
+
+    return field_data;
   }
   function saveData(event) {
     event.preventDefault();
@@ -229,10 +282,46 @@ function Container() {
       dataValue,
       onChangeInput
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Header__WEBPACK_IMPORTED_MODULE_5__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Body__WEBPACK_IMPORTED_MODULE_6__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)((react_notification_system__WEBPACK_IMPORTED_MODULE_3___default()), {
-    ref: notificationSystem,
-    style: NotiStyle
-  }));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "Hello Dashboard"));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Dummy.js":
+/*!*********************************************!*\
+  !*** ./assets/admin/js/components/Dummy.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Dummy; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
+
+
+
+
+function Dummy() {
+  const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [runData, setRunData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [runX, setRunX] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('one');
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (runData) {
+      //fetchAPIData();
+
+      console.log('hello data');
+      setRunData(false);
+    } else {
+      console.log('hello follow');
+    }
+  }, [runData]);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__["default"].Provider, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "Hello Dummy Dashboard"));
 }
 
 /***/ }),
@@ -273,7 +362,6 @@ __webpack_require__.r(__webpack_exports__);
 function Field(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
   let counter = 0;
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let field_item = props.field;
   let type = field_item.type;
 
@@ -407,7 +495,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Checkbox(props) {
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
   if (Object.keys(data.options).length === 0) {
     return;
@@ -452,7 +539,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Number(props) {
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     className: "opt-main-input",
@@ -487,7 +573,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Radio(props) {
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
   if (Object.keys(data.options).length === 0) {
     return;
@@ -532,7 +617,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Select(props) {
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
   if (Object.keys(data.options).length === 0) {
     return;
@@ -583,8 +667,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function Text(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let data = props.data;
+
+  // console.log('text js');
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     className: "opt-main-input",
     name: data.name,
@@ -625,7 +711,6 @@ function Header() {
 
   //console.log(opt_dashboard_data);
 
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
     className: "opt-top-bar"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -679,7 +764,6 @@ __webpack_require__.r(__webpack_exports__);
 function Sidebar() {
   const [apiData, setApiData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   let opt_sidebar = opt_dashboard_data.settings.sidebar;
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   function sidebarItems() {
     let items = opt_sidebar.items.map(item => {
       let email_subscribe_input = "";
@@ -753,7 +837,6 @@ function SubTab(props) {
 
   //console.log(tabs);
 
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   function onClickSubTab(event) {
     event.preventDefault();
     let $this = event.target;
@@ -829,7 +912,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SubmitButtons(props) {
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "opt-main-items-button"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -979,7 +1061,6 @@ function TabContent(props) {
 
   //const opt_form = dashboardContext.apiData.localData.settings.form;
 
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, []);
   let content_classes = ['opt-main-content'];
   if (props.counter == 0) {
     content_classes.push('opt-main-content-active');
@@ -4338,6 +4419,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Container */ "./assets/admin/js/components/Container.js");
+/* harmony import */ var _components_Dummy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Dummy */ "./assets/admin/js/components/Dummy.js");
+
 
 
 
@@ -4346,7 +4429,7 @@ window.addEventListener('DOMContentLoaded', function () {
   let optDashboardContainer = document.querySelector('.opt-main-container');
 
   // render the DOM
-  react_dom__WEBPACK_IMPORTED_MODULE_2___default().render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Container__WEBPACK_IMPORTED_MODULE_3__["default"], null), optDashboardContainer);
+  react_dom__WEBPACK_IMPORTED_MODULE_2___default().render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Dummy__WEBPACK_IMPORTED_MODULE_4__["default"], null), optDashboardContainer);
 });
 }();
 /******/ })()

@@ -15,10 +15,6 @@ export default function Field(props) {
     const dashboardContext = useContext(DashboardContext);
     let counter = 0;
 
-    useEffect(  () => {
-
-    }, [] )
-
     let field_item  = props.field;
     let type        = field_item.type;
 

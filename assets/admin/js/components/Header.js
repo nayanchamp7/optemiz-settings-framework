@@ -12,11 +12,6 @@ export default function Header() {
 
     //console.log(opt_dashboard_data);
 
-    useEffect(  () => {
-
-
-    }, [] )
-
 
     return (
         <header className="opt-top-bar">
