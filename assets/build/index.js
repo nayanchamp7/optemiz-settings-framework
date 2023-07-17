@@ -2395,20 +2395,38 @@ function Container() {
     event.preventDefault();
     setSaveData(true);
   }
-  function onChangeSelect(values) {
+  function onChangeSelect(_ref) {
+    let {
+      value,
+      item
+    } = _ref;
     // option name
-
-    console.log(values);
+    let name = item.name;
+    name = sanitizeOptionsKey(name);
 
     // old values
     let currentData = {
       ...dataValue
     };
 
-    // update values
-    //setDataValue(currentData);
-  }
+    // sync values
+    let optionValues = [];
+    Object.keys(value).forEach(function (key) {
+      let item = value[key].value;
+      optionValues.push(item);
+    });
 
+    // filter value
+    currentData[name] = optionValues;
+
+    // update values
+    setDataValue(currentData);
+  }
+  function sanitizeOptionsKey(key) {
+    // remove `[]` parenthesis from the field key
+    key = key.replace(/[\])}[{(]/g, '');
+    return key;
+  }
   function onChangeInput(event) {
     console.log("inside on change input");
     let {
@@ -2425,7 +2443,7 @@ function Container() {
     console.log(name);
     if (type === 'checkbox') {
       // remove `[]` parenthesis from the name
-      name = name.replace(/[\])}[{(]/g, '');
+      name = sanitizeOptionsKey(name);
 
       // get the old values
       let oldValues = currentData[name];
@@ -2821,9 +2839,11 @@ function SelectField(props) {
         let item = {};
         let value = values[option_key];
         let ValueObject = data.options.filter(item => item.value.toLowerCase().includes(value));
-        console.log(data.options);
-        console.log(value);
-        console.log(ValueObject);
+
+        // console.log(data.options);
+        // console.log(value);
+        // console.log(ValueObject);
+
         item.value = value;
         item.label = ValueObject[0].label;
         defaultOptions.push(item);
@@ -2831,30 +2851,17 @@ function SelectField(props) {
     }
     return defaultOptions;
   }
-  const handleChange = newValue => {
-    console.log(newValue);
-
-    // const inputValue = newValue.replace(/\W/g, "");
-    // setInputValue(inputValue);
-    // return inputValue;
-  };
-
-  const promiseOptions = inputValue => {
-    console.log(inputValue);
-    return new Promise(resolve => {
-      setTimeout(() => {
-        // resolve(filterColors(inputValue));
-
-        return data.options;
-      }, 1000);
-    });
-  };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_3__["default"], {
     cacheOptions: true,
     defaultOptions: true,
     value: getDefaultValues(),
     placeholder: data.placeholder,
-    onChange: dashboardContext.onChangeSelect.bind(this),
+    onChange: (value, item) => {
+      dashboardContext.onChangeSelect({
+        value,
+        item
+      });
+    },
     options: data.options,
     name: data.name + "[]"
     // loadingIndicator={true}

@@ -29,9 +29,9 @@ export default function SelectField(props) {
 
                 let ValueObject = data.options.filter(item=>item.value.toLowerCase().includes(value));
 
-                console.log(data.options);
-                console.log(value);
-                console.log(ValueObject);
+                // console.log(data.options);
+                // console.log(value);
+                // console.log(ValueObject);
 
                 item.value  = value;
                 item.label  = ValueObject[0].label;
@@ -43,34 +43,6 @@ export default function SelectField(props) {
         return defaultOptions;
     }
 
-
-    const handleChange = (newValue) => {
-
-        console.log(newValue);
-
-
-
-        // const inputValue = newValue.replace(/\W/g, "");
-        // setInputValue(inputValue);
-        // return inputValue;
-    };
-
-
-    const promiseOptions = (inputValue) => {
-
-
-        console.log(inputValue);
-
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // resolve(filterColors(inputValue));
-
-                return data.options;
-            }, 1000);
-        });
-    }
-
-
     return (
         <>
             <Select
@@ -78,7 +50,9 @@ export default function SelectField(props) {
                 defaultOptions
                 value={getDefaultValues()}
                 placeholder={ data.placeholder }
-                onChange={dashboardContext.onChangeSelect.bind(this)}
+                onChange={( value, item ) => {
+                    dashboardContext.onChangeSelect({value, item});
+                }}
                 options={data.options}
                 name={data.name + "[]"}
                 // loadingIndicator={true}

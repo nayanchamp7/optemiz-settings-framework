@@ -155,18 +155,34 @@ export default function Container() {
         setSaveData(true);
     }
 
-    function onChangeSelect(values) {
+    function onChangeSelect({value, item}) {
         // option name
-
-        console.log(values);
+        let name = item.name;
+            name = sanitizeOptionsKey(name);
 
         // old values
         let currentData = { ...dataValue };
 
+        // sync values
+        let optionValues = [];
+        Object.keys(value).forEach(function(key) {
+            let item = value[key].value;
+            optionValues.push(item);
+        });
+
+        // filter value
+        currentData[name] = optionValues;
 
         // update values
-        //setDataValue(currentData);
+        setDataValue(currentData);
 
+    }
+
+    function sanitizeOptionsKey(key) {
+        // remove `[]` parenthesis from the field key
+        key = key.replace(/[\])}[{(]/g, '');
+
+        return key
     }
 
     function onChangeInput(event) {
@@ -182,7 +198,7 @@ export default function Container() {
 
         if( type === 'checkbox' ) {
             // remove `[]` parenthesis from the name
-            name = name.replace(/[\])}[{(]/g, '');
+            name = sanitizeOptionsKey(name);
 
             // get the old values
             let oldValues = currentData[name];
