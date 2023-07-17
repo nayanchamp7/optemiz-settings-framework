@@ -19,7 +19,7 @@ export default function Body() {
         <Fragment>
             <form
             className="opt-body opt-dashboard-form"
-            onSubmit={dashboardContext.saveData}
+            onSubmit={dashboardContext.onSubmitData}
             enctype="multipart/form-data"
             >
                 <div className="opt-body-left-child">

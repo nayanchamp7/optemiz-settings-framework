@@ -20,9 +20,21 @@ class OptemizDashboard {
      * OptemizDashboard constructor.
      *
      */
-    public function __construct() {
-
+    public function __construct($key) {
+		$this->setKey($key);
     }
+
+	/**
+	 * Set settings key.
+	 *
+     * @param string $key settings unique meta key.
+     *
+	 * @return void
+	 */
+	public function setKey($key) {
+        OptemizSettings::setKey($key);
+	}
+
 
     /**
 	 * Set settings general arguments.

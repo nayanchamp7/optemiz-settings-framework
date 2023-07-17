@@ -22,14 +22,8 @@ export default function Radio(props) {
                 Object.keys(data.options).map( (option_key, index) => {
                     let label = data.options[option_key];
 
-                    //@TODO need to be dynamic values after default value parsing
-                    let isChecked =  value === option_key ? 'checked' : '';
-
-                    console.log(value + ' - ' + option_key + ' - ' + isChecked);
-
                     return(
                         <li>
-                            { value }
                             <input
                                 name={data.name}
                                 value={option_key}

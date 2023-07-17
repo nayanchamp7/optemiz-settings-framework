@@ -22,36 +22,41 @@ export default function Container() {
 
     const [dataValue, setDataValue] = useState({});
     const [runData, setRunData] = useState(true);
+    const [saveData, setSaveData] = useState(false);
     const [runX, setRunX] = useState('one');
 
     useEffect( () => {
 
-        async function fetchAPIData() {
+        async function fetchData() {
             if( runData ) {
 
-                let dataValueObj = await optGetDefaultData();
+                let defaultValues = await optGetDefaultData();
+                let parsedValue = defaultValues;
 
-                console.log(opt_dashboard_data.ajaxurl);
-                var data = { action: 'opt_get_settings_data', key2:'value2' };
+                var data = {
+                    action: 'opt_get_settings_data',
+                    key: opt_dashboard_data.settings.key,
+                };
 
                 axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
                 .then( function (response) {
-                    console.log(response);
                     let data = response.data;
+                    let dataValueObj = {};
 
                     if( data.success ) {
-                        if( data.data.result.length > 0 ) {
-                            console.log(data.data.result);
-
-                            // dataValueObj = data.data.result;
-                        }else {
-                            dataValueObj = optGetDefaultData();
+                        if( data.data.values.length > 0 ) {
+                            dataValueObj = JSON.parse(data.data.values);
                         }
                     }
 
-                    console.log(dataValueObj);
+                    // merge default values and database values
+                    if( dataValueObj ) {
+                        parsedValue = { ...defaultValues, ...dataValueObj };
+                    }
 
-                    setDataValue(dataValueObj);
+                    console.log(parsedValue);
+
+                    setDataValue(parsedValue);
 
                 })
                 .catch(function (error) {
@@ -62,46 +67,59 @@ export default function Container() {
             }
         }
 
-        fetchAPIData();
+        fetchData();
     }, [runData])
 
-    async function getData(url = '') {
+    useEffect( () => {
 
-        if( ! opt_dashboard_data.homeurl ) {
-            return;
+        async function updateData() {
+            if( saveData ) {
+
+                var data = {
+                    action: 'opt_update_settings_data',
+                    key: opt_dashboard_data.settings.key,
+                    value: dataValue
+                };
+
+                axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
+                .then( function (response) {
+                    console.log(response);
+                    let data = response.data;
+                    let dataValueObj = {};
+
+                    if( data.success ) {
+                        if( data.data.result.length > 0 ) {
+                            console.log(data.data.result);
+
+                            //@TODO need to be dynamic, database value
+                            // dataValueObj = data.data.result;
+                        }
+
+                        const notification = notificationSystem.current;
+                        notification.addNotification({
+                            title: 'Success!', //@TODO need to be dynamic
+                            message: 'Settings Saved', //@TODO need to be dynamic
+                            level: 'success',
+                            position: 'br',
+                            autoDismiss: 2,
+                        });
+                    }
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+                setSaveData(false);
+            }
         }
 
-        if( ! url ) {
-            url = opt_dashboard_data.homeurl + "/wp-json/storepress/v1/wpf/patterns";
-        }
-
-        await Promise.all([
-            fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then( function(response) {
-                //console.log(response);
-
-                setApiData(response);
-            })
-        ]);
-
-        setGetAPIData(false);
-    }
-
-
+        updateData();
+    }, [saveData])
 
     async function optGetDefaultData() {
         let field_data = {};
         let items = opt_dashboard_data.settings.form.items;
-
-        console.log('cool');
 
         if( Object.keys(items).length > 0 ) {
             Object.keys(items).map( (items_key) => {
@@ -139,77 +157,45 @@ export default function Container() {
         return field_data;
     }
 
-    function saveData(event) {
+    function onSubmitData(event) {
         event.preventDefault();
 
-        console.log("submited");
-        console.log(dataValue);
-
-        const notification = notificationSystem.current;
-        notification.addNotification({
-            title: 'Success!', //@TODO need to be dynamic
-            message: 'Settings Saved', //@TODO need to be dynamic
-            level: 'success',
-            position: 'br',
-            autoDismiss: 2,
-        });
-
-        //let form = document.querySelector('.opt-dashboard-form');
-
-        //console.log(Array.from(form.elements));
-
-
-        // let elements = Array.from(form.elements).filter(tag => ["select", "textarea", "input"].includes(tag.tagName.toLowerCase()));
-        // elements.forEach( (element) => {
-        //     //console.log(element.value);
-        // })
-
-
-
-        //let formData = new FormData(form);
-
-        //let data = Array.from(formData);
-
-        //let keys = formData.keys();
-
-        //console.log(formData.entries());
-        //console.log(keys);
-
-        // const formDataObj = {};
-        // formData.forEach((value, key) => (formDataObj[key] = value));
-        // console.log(formDataObj);
-
-        // for (var key of keys) {
-        //     // console.log("something");
-		// 	console.log(key)
-
-        //     let values = formData.getAll(key);
-
-        //     console.log(values);
-		// }
-
-        // formData.set("opt_dashboard_data[opt_frontend]", "five");
-
-        // for (var key of formData.entries()) {
-        //     // console.log("something");
-		// 	console.log(key[0] + ', ' + key[1])
-		// }
+        setSaveData(true);
 
     }
 
     function onChangeInput(event) {
-        event.preventDefault();
 
         console.log("inside on change input");
-        console.log(event.target.value);
-        console.log(event.target.name);
 
-        let name  = event.target.name;
-        let value = event.target.value; //@TODO need to make eligible with array value
-
+        let { value, name, type, checked } = event.target;
         let currentData = { ...dataValue };
 
-        currentData[name] = value;
+        console.log(checked);
+        console.log(value);
+        console.log(name);
+
+        if( type === 'checkbox' || type === 'select' ) {
+            // remove `[]` parenthesis from the name
+            name = name.replace(/[\])}[{(]/g, '');
+
+            // get the old values
+            let oldValues = currentData[name];
+
+            if (checked) {
+                // add to the list
+                currentData[name] = [
+                    ...oldValues,
+                    value,
+                ];
+            } else {
+                // remove from list
+                currentData[name] = oldValues.filter((oldValue) => oldValue !== value);
+            }
+
+        }else {
+            currentData[name] = value;
+        }
 
         setDataValue(currentData);
     }
@@ -252,7 +238,7 @@ export default function Container() {
 
     return (
         <DashboardContext.Provider
-            value={{apiData, saveData, dataValue, onChangeInput}}
+            value={{apiData, onSubmitData, dataValue, onChangeInput}}
         >
             <Header />
             <Body go={runData}/>

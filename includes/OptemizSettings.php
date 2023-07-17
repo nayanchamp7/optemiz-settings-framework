@@ -41,6 +41,19 @@ class OptemizSettings {
 	}
 
     /**
+	 * Set meta key.
+	 *
+	 * @return void
+	 */
+	public static function setKey($key) {
+        self::$settings['key'] = $key;
+
+		//self::$settings = apply_filters("filter_opt_general_settings", self::$settings['args']);
+
+        //return self::$_instance;
+	}
+
+    /**
 	 * Set arguments.
 	 *
 	 * @return array
@@ -63,7 +76,7 @@ class OptemizSettings {
 		if( !isset(self::$settings['args']) ) {
 			self::$settings['args'] = [];
 		}
-		
+
 		if( !isset(self::$settings['header']) ) {
 			self::$settings['header'] = [];
 		}

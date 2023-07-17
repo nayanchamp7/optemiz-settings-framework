@@ -14,15 +14,21 @@ export default function Checkbox(props) {
         return;
     }
 
+    let values = dashboardContext.dataValue[data.name];
 
     return (
         <ul className='opt-checkbox-list'>
             {
                 Object.keys(data.options).map( (option_key, index) => {
                     let label = data.options[option_key];
+                    let isChecked = false;
 
                     //@TODO need to be dynamic values after default value parsing
-                    let isChecked =  Object.values(data.default_value).includes(option_key) ? 'checked' : '';
+                    if( (values !== undefined) ) {
+                        if( Object.values(values).includes(option_key) ) {
+                            isChecked = true;
+                        }
+                    }
 
                     return(
                         <li>
@@ -30,6 +36,7 @@ export default function Checkbox(props) {
                                 name={data.name + "[]"}
                                 value={option_key}
                                 checked={isChecked}
+                                onChange={dashboardContext.onChangeInput}
                                 type="checkbox" />
                             <span>{ label }</span>
                         </li>

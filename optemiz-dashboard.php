@@ -43,9 +43,7 @@ require_once OPT_PLUGIN_PATH . "/vendor/autoload.php";
 add_action('plugins_loaded', 'opt_dashboard_init');
 function opt_dashboard_init() {
 
-	error_log("loaded...");
-
-	new OptDashboard\OptemizDashboard();
+	new OptDashboard\OptemizDashboard('orderly_settings');
 
 	add_action( 'admin_init', 'opt_dashboard_admin_init' );
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
@@ -55,14 +53,51 @@ function opt_dashboard_init() {
 
 function opt_dashboard_admin_init() {
 	add_action('wp_ajax_opt_get_settings_data', 'opt_get_settings_data');
+	add_action('wp_ajax_opt_update_settings_data', 'opt_update_settings_data');
 }
 
 function opt_get_settings_data() {
 
+	if( !isset($_POST['key']) ) {
+		return;
+	}
 
-	$data = [
-		'result' => ['oppp']
-	];
+	$data 	= [];
+	$key 	= wp_unslash($_POST['key']);
+
+	$values = get_option($key);
+
+	if( $values ) {
+		$data['values'] = $values;
+		$data['msg'] = __("settings parsed");
+	}
+
+	wp_send_json_success($data);
+	exit;
+}
+
+function opt_update_settings_data() {
+
+	if( !isset($_POST['key']) ) {
+		return;
+	}
+
+	if( !isset($_POST['value']) ) {
+		return;
+	}
+
+	$data 	= [];
+	$key 	= wp_unslash($_POST['key']);
+	$value 	= $_POST['value'];
+
+	error_log( print_r($key, true) );
+	error_log( print_r($value, true) );
+
+	$updated = update_option($key, json_encode($value));
+
+	if( $updated ) {
+		$data['msg'] = __("settings udpated");
+	}
 
 	wp_send_json_success($data);
 	exit;

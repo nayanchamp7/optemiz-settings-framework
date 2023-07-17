@@ -35,7 +35,7 @@ function Body() {
   let menu_content_items = opt_form.items;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
     className: "opt-body opt-dashboard-form",
-    onSubmit: dashboardContext.saveData,
+    onSubmit: dashboardContext.onSubmitData,
     enctype: "multipart/form-data"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "opt-body-left-child"
@@ -100,64 +100,85 @@ function Container() {
   });
   const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [runData, setRunData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [saveData, setSaveData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [runX, setRunX] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('one');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    async function fetchAPIData() {
+    async function fetchData() {
       if (runData) {
-        let dataValueObj = await optGetDefaultData();
-        console.log(opt_dashboard_data.ajaxurl);
+        let defaultValues = await optGetDefaultData();
+        let parsedValue = defaultValues;
         var data = {
           action: 'opt_get_settings_data',
-          key2: 'value2'
+          key: opt_dashboard_data.settings.key
         };
         axios__WEBPACK_IMPORTED_MODULE_8__["default"].post(opt_dashboard_data.ajaxurl, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-          console.log(response);
           let data = response.data;
+          let dataValueObj = {};
           if (data.success) {
-            if (data.data.result.length > 0) {
-              console.log(data.data.result);
-
-              // dataValueObj = data.data.result;
-            } else {
-              dataValueObj = optGetDefaultData();
+            if (data.data.values.length > 0) {
+              dataValueObj = JSON.parse(data.data.values);
             }
           }
-          console.log(dataValueObj);
-          setDataValue(dataValueObj);
+
+          // merge default values and database values
+          if (dataValueObj) {
+            parsedValue = {
+              ...defaultValues,
+              ...dataValueObj
+            };
+          }
+          console.log(parsedValue);
+          setDataValue(parsedValue);
         }).catch(function (error) {
           console.log(error);
         });
         setRunData(false);
       }
     }
-    fetchAPIData();
+    fetchData();
   }, [runData]);
-  async function getData() {
-    let url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    if (!opt_dashboard_data.homeurl) {
-      return;
-    }
-    if (!url) {
-      url = opt_dashboard_data.homeurl + "/wp-json/storepress/v1/wpf/patterns";
-    }
-    await Promise.all([fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      //console.log(response);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    async function updateData() {
+      if (saveData) {
+        var data = {
+          action: 'opt_update_settings_data',
+          key: opt_dashboard_data.settings.key,
+          value: dataValue
+        };
+        axios__WEBPACK_IMPORTED_MODULE_8__["default"].post(opt_dashboard_data.ajaxurl, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+          console.log(response);
+          let data = response.data;
+          let dataValueObj = {};
+          if (data.success) {
+            if (data.data.result.length > 0) {
+              console.log(data.data.result);
 
-      setApiData(response);
-    })]);
-    setGetAPIData(false);
-  }
+              //@TODO need to be dynamic, database value
+              // dataValueObj = data.data.result;
+            }
+
+            const notification = notificationSystem.current;
+            notification.addNotification({
+              title: 'Success!',
+              //@TODO need to be dynamic
+              message: 'Settings Saved',
+              //@TODO need to be dynamic
+              level: 'success',
+              position: 'br',
+              autoDismiss: 2
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+        setSaveData(false);
+      }
+    }
+    updateData();
+  }, [saveData]);
   async function optGetDefaultData() {
     let field_data = {};
     let items = opt_dashboard_data.settings.form.items;
-    console.log('cool');
     if (Object.keys(items).length > 0) {
       Object.keys(items).map(items_key => {
         let item = items[items_key];
@@ -186,72 +207,40 @@ function Container() {
 
     return field_data;
   }
-  function saveData(event) {
+  function onSubmitData(event) {
     event.preventDefault();
-    console.log("submited");
-    console.log(dataValue);
-    const notification = notificationSystem.current;
-    notification.addNotification({
-      title: 'Success!',
-      //@TODO need to be dynamic
-      message: 'Settings Saved',
-      //@TODO need to be dynamic
-      level: 'success',
-      position: 'br',
-      autoDismiss: 2
-    });
-
-    //let form = document.querySelector('.opt-dashboard-form');
-
-    //console.log(Array.from(form.elements));
-
-    // let elements = Array.from(form.elements).filter(tag => ["select", "textarea", "input"].includes(tag.tagName.toLowerCase()));
-    // elements.forEach( (element) => {
-    //     //console.log(element.value);
-    // })
-
-    //let formData = new FormData(form);
-
-    //let data = Array.from(formData);
-
-    //let keys = formData.keys();
-
-    //console.log(formData.entries());
-    //console.log(keys);
-
-    // const formDataObj = {};
-    // formData.forEach((value, key) => (formDataObj[key] = value));
-    // console.log(formDataObj);
-
-    // for (var key of keys) {
-    //     // console.log("something");
-    // 	console.log(key)
-
-    //     let values = formData.getAll(key);
-
-    //     console.log(values);
-    // }
-
-    // formData.set("opt_dashboard_data[opt_frontend]", "five");
-
-    // for (var key of formData.entries()) {
-    //     // console.log("something");
-    // 	console.log(key[0] + ', ' + key[1])
-    // }
+    setSaveData(true);
   }
-
   function onChangeInput(event) {
-    event.preventDefault();
     console.log("inside on change input");
-    console.log(event.target.value);
-    console.log(event.target.name);
-    let name = event.target.name;
-    let value = event.target.value; //@TODO need to make eligible with array value
-
+    let {
+      value,
+      name,
+      type,
+      checked
+    } = event.target;
     let currentData = {
       ...dataValue
     };
-    currentData[name] = value;
+    console.log(checked);
+    console.log(value);
+    console.log(name);
+    if (type === 'checkbox' || type === 'select') {
+      // remove `[]` parenthesis from the name
+      name = name.replace(/[\])}[{(]/g, '');
+
+      // get the old values
+      let oldValues = currentData[name];
+      if (checked) {
+        // add to the list
+        currentData[name] = [...oldValues, value];
+      } else {
+        // remove from list
+        currentData[name] = oldValues.filter(oldValue => oldValue !== value);
+      }
+    } else {
+      currentData[name] = value;
+    }
     setDataValue(currentData);
   }
   let NotiStyle = {
@@ -292,7 +281,7 @@ function Container() {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_5__["default"].Provider, {
     value: {
       apiData,
-      saveData,
+      onSubmitData,
       dataValue,
       onChangeInput
     }
@@ -482,17 +471,24 @@ function Checkbox(props) {
   if (Object.keys(data.options).length === 0) {
     return;
   }
+  let values = dashboardContext.dataValue[data.name];
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "opt-checkbox-list"
   }, Object.keys(data.options).map((option_key, index) => {
     let label = data.options[option_key];
+    let isChecked = false;
 
     //@TODO need to be dynamic values after default value parsing
-    let isChecked = Object.values(data.default_value).includes(option_key) ? 'checked' : '';
+    if (values !== undefined) {
+      if (Object.values(values).includes(option_key)) {
+        isChecked = true;
+      }
+    }
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
       name: data.name + "[]",
       value: option_key,
       checked: isChecked,
+      onChange: dashboardContext.onChangeInput,
       type: "checkbox"
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, label));
   }));
@@ -573,11 +569,7 @@ function Radio(props) {
     className: "opt-radio-list"
   }, Object.keys(data.options).map((option_key, index) => {
     let label = data.options[option_key];
-
-    //@TODO need to be dynamic values after default value parsing
-    let isChecked = value === option_key ? 'checked' : '';
-    console.log(value + ' - ' + option_key + ' - ' + isChecked);
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, value, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
       name: data.name,
       value: option_key,
       id: option_key,
@@ -619,18 +611,21 @@ function Select(props) {
   if (Object.keys(data.options).length === 0) {
     return;
   }
-
-  //@TODO apply select 2 here
-
+  let values = dashboardContext.dataValue[data.name];
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
     className: "opt-select-list",
     name: data.name + "[]",
     multiple: data.multiple
   }, Object.keys(data.options).map((option_key, index) => {
     let option_label = data.options[option_key];
+    let isSelected = false;
 
-    //@TODO need to be dynamic values after default value parsing
-    let isSelected = Object.values(data.default_value).includes(option_key) ? 'selected' : '';
+    //@TODO apply select 2 here
+    if (values !== undefined) {
+      if (Object.values(values).includes(option_key)) {
+        isSelected = true;
+      }
+    }
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
       value: option_key,
       selected: isSelected

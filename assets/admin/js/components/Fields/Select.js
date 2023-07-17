@@ -14,16 +14,21 @@ export default function Select(props) {
         return;
     }
 
-    //@TODO apply select 2 here
+    let values = dashboardContext.dataValue[data.name];
 
     return (
         <select className='opt-select-list' name={data.name + "[]"} multiple={ data.multiple }>
             {
                 Object.keys(data.options).map( (option_key, index) => {
-                    let option_label = data.options[option_key];
+                    let option_label    = data.options[option_key];
+                    let isSelected      = false;
 
-                    //@TODO need to be dynamic values after default value parsing
-                    let isSelected =  Object.values(data.default_value).includes(option_key) ? 'selected' : '';
+                    //@TODO apply select 2 here
+                    if( (values !== undefined) ) {
+                        if( Object.values(values).includes(option_key) ) {
+                            isSelected = true;
+                        }
+                    }
 
                     return(
                         <option value={option_key} selected={isSelected}>{ option_label }</option>
