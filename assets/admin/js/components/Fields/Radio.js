@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
+import DashboardContext from '../../context/DashboardContext';
 
 export default function Radio(props) {
 
@@ -11,6 +12,9 @@ export default function Radio(props) {
         return;
     }
 
+    const dashboardContext = useContext(DashboardContext);
+
+    let value = dashboardContext.dataValue[data.name];
 
     return (
         <ul className='opt-radio-list'>
@@ -19,14 +23,19 @@ export default function Radio(props) {
                     let label = data.options[option_key];
 
                     //@TODO need to be dynamic values after default value parsing
-                    let isChecked =  data.default_value === option_key ? 'checked' : '';
+                    let isChecked =  value === option_key ? 'checked' : '';
+
+                    console.log(value + ' - ' + option_key + ' - ' + isChecked);
 
                     return(
                         <li>
+                            { value }
                             <input
                                 name={data.name}
                                 value={option_key}
-                                checked={isChecked}
+                                id={option_key}
+                                checked={value === option_key}
+                                onChange={dashboardContext.onChangeInput}
                                 type="radio" />
                             <span>{ label }</span>
                         </li>

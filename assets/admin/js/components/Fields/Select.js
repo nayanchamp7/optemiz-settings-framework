@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
+import DashboardContext from '../../context/DashboardContext';
 
 export default function Select(props) {
+
+    const dashboardContext = useContext(DashboardContext);
 
     let data  = props.data;
 

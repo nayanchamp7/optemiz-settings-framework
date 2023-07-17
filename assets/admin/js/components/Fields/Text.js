@@ -8,16 +8,21 @@ export default function Text(props) {
 
     const dashboardContext = useContext(DashboardContext);
 
-    let data  = props.data;
 
     // console.log('text js');
+    // console.log(dashboardContext);
+
+    let data  = props.data;
+    let value = dashboardContext.dataValue[data.name];
+
+    console.log(value);
 
     return (
         <>
             <input
                 className="opt-main-input"
                 name={data.name}
-                value={ data.value ? data.value : data.default_value }
+                value={value}
                 placeholder={data.placeholder}
                 onChange={dashboardContext.onChangeInput}
                 type="text" />

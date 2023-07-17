@@ -43,12 +43,29 @@ require_once OPT_PLUGIN_PATH . "/vendor/autoload.php";
 add_action('plugins_loaded', 'opt_dashboard_init');
 function opt_dashboard_init() {
 
-	error_log("here");
+	error_log("loaded...");
 
 	new OptDashboard\OptemizDashboard();
 
+	add_action( 'admin_init', 'opt_dashboard_admin_init' );
 	add_action( 'admin_menu', 'opt_dashboard_menu_page' );
 	add_action( 'admin_enqueue_scripts', 'opt_admin_enqueue_scripts' );
+
+}
+
+function opt_dashboard_admin_init() {
+	add_action('wp_ajax_opt_get_settings_data', 'opt_get_settings_data');
+}
+
+function opt_get_settings_data() {
+
+
+	$data = [
+		'result' => ['oppp']
+	];
+
+	wp_send_json_success($data);
+	exit;
 }
 
 //include classes
@@ -376,12 +393,13 @@ function opt_admin_enqueue_scripts( $hook ) {
 	wp_enqueue_script( 'opt-dashboard-select2', OPT_PLUGIN_URL . '/assets/admin/js/select2.min.js' , array('jquery'), '1.0.0' );
 
 	wp_localize_script('opt-dashboard', 'opt_dashboard_data', [
-		'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) ),
+		'ajaxurl'       => admin_url( 'admin-ajax.php' ),
         'homeurl'       => esc_url( home_url() ),
         'nonce'         => wp_create_nonce( 'opt_admin_data' ),
 		'plugin_url' 	=> OPT_PLUGIN_URL,
 		'plugin_path' 	=> OPT_PLUGIN_PATH,
-		//'settings' 		=> opt_get_dashboard_data(),
+		'settings' 		=> opt_get_dashboard_data(),
 	]);
 }
+
 

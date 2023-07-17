@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
+import QS from 'qs';
 import NotificationSystem from 'react-notification-system';
 
 import { Fragment, useState, useEffect, createRef, useRef } from "@wordpress/element";
@@ -23,16 +24,45 @@ export default function Container() {
     const [runData, setRunData] = useState(true);
     const [runX, setRunX] = useState('one');
 
-    useEffect(() => {
+    useEffect( () => {
 
-        if( runData ) {
-            //fetchAPIData();
+        async function fetchAPIData() {
+            if( runData ) {
 
-            console.log('hello data');
+                let dataValueObj = await optGetDefaultData();
 
-            setRunData(false);
+                console.log(opt_dashboard_data.ajaxurl);
+                var data = { action: 'opt_get_settings_data', key2:'value2' };
+
+                axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
+                .then( function (response) {
+                    console.log(response);
+                    let data = response.data;
+
+                    if( data.success ) {
+                        if( data.data.result.length > 0 ) {
+                            console.log(data.data.result);
+
+                            // dataValueObj = data.data.result;
+                        }else {
+                            dataValueObj = optGetDefaultData();
+                        }
+                    }
+
+                    console.log(dataValueObj);
+
+                    setDataValue(dataValueObj);
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+                setRunData(false);
+            }
         }
 
+        fetchAPIData();
     }, [runData])
 
     async function getData(url = '') {
@@ -65,34 +95,7 @@ export default function Container() {
         setGetAPIData(false);
     }
 
-    async function fetchAPIData() {
 
-        //if( runData && !runDataRef.current ) {
-            console.log(runData);
-
-            let default_data = dataValue;
-
-            console.log(dataValue);
-
-            if( Object.keys(dataValue).length == 0 ) {
-                console.log('heee');
-                default_data = await optGetDefaultData();
-            }else {
-                //await getData();
-            }
-
-            let dummy = [1, 3];
-            console.log(default_data);
-            console.log(typeof dummy);
-
-            setDataValue(default_data);
-            setRunData(false);
-            runDataRef.current = true;
-            // setRunX('seven');
-
-            //console.log(dataValue);
-        //}
-    }
 
     async function optGetDefaultData() {
         let field_data = {};
@@ -140,6 +143,7 @@ export default function Container() {
         event.preventDefault();
 
         console.log("submited");
+        console.log(dataValue);
 
         const notification = notificationSystem.current;
         notification.addNotification({
@@ -198,6 +202,16 @@ export default function Container() {
 
         console.log("inside on change input");
         console.log(event.target.value);
+        console.log(event.target.name);
+
+        let name  = event.target.name;
+        let value = event.target.value; //@TODO need to make eligible with array value
+
+        let currentData = { ...dataValue };
+
+        currentData[name] = value;
+
+        setDataValue(currentData);
     }
 
     let NotiStyle = {
@@ -240,10 +254,9 @@ export default function Container() {
         <DashboardContext.Provider
             value={{apiData, saveData, dataValue, onChangeInput}}
         >
-            {/* <Header />
+            <Header />
             <Body go={runData}/>
-            <NotificationSystem ref={notificationSystem} style={NotiStyle}/> */}
-            <h1>Hello Dashboard</h1>
+            <NotificationSystem ref={notificationSystem} style={NotiStyle}/>
 
         </DashboardContext.Provider>
     );

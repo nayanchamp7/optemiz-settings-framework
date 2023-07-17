@@ -22,15 +22,13 @@ class OptemizDashboard {
      */
     public function __construct() {
 
-        error_log("class opt dashboard");
-
     }
 
     /**
 	 * Set settings general arguments.
 	 *
      * @param array $args arguments.
-     * 
+     *
 	 * @return void
 	 */
 	public static function setArgs($args) {
@@ -41,18 +39,18 @@ class OptemizDashboard {
 	 * Create header.
 	 *
      * @param array $args arguments.
-     * 
+     *
 	 * @return void
 	 */
 	public static function createHeader($args) {
         OptemizHeader::set($args);
 	}
-    
+
     /**
 	 * Create sidebar.
 	 *
      * @param array $args arguments.
-     * 
+     *
 	 * @return void
 	 */
 	public static function createSidebar($args) {
@@ -64,7 +62,7 @@ class OptemizDashboard {
 	 *
      * @param string    $key tab key.
      * @param array     $args arguments.
-     * 
+     *
 	 * @return void
 	 */
 	public static function createTab($key, $args) {
@@ -73,27 +71,27 @@ class OptemizDashboard {
 
     /**
 	 * Create sub tab settings.
-     * 
+     *
      * @param string    $tab_key tab key.
      * @param string    $sub_tab_key sub tab key.
      * @param array     $args arguments.
-     * 
+     *
 	 * @return void
 	 */
 	public static function createSubTab($tab_key, $sub_tab_key, $args) {
         OptemizSubTab::set($tab_key, $sub_tab_key, $args);
 	}
-    
+
     /**
 	 * Create sub tab settings.
-     * 
+     *
      * @param string    $tab_key tab key.
      * @param string    $sub_tab_key sub tab key.
      * @param array     $args arguments.
-     * 
+     *
 	 * @return void
 	 */
-	public static function createOptions($tab_key, $sub_tab_key, $fields) {
+        public static function createOptions($tab_key, $sub_tab_key, $fields) {
         OptemizField::set($tab_key, $sub_tab_key, $fields);
 	}
 }
