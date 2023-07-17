@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import Select from 'react-select'
 
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 import DashboardContext from '../../context/DashboardContext';
 
-export default function Select(props) {
+export default function SelectField(props) {
 
     const dashboardContext = useContext(DashboardContext);
 
@@ -16,25 +16,35 @@ export default function Select(props) {
 
     let values = dashboardContext.dataValue[data.name];
 
+    let options = [];
+    Object.keys(data.options).map( (option_key, index) => {
+        let item = {}
+        item.value = option_key;
+        item.label = data.options[option_key];
+
+        options.push(item);
+    });
+
+    const handleChange = (newValue) => {
+
+        console.log(newValue);
+
+        // const inputValue = newValue.replace(/\W/g, "");
+        // setInputValue(inputValue);
+        // return inputValue;
+    };
+
     return (
-        <select className='opt-select-list' name={data.name + "[]"} multiple={ data.multiple }>
-            {
-                Object.keys(data.options).map( (option_key, index) => {
-                    let option_label    = data.options[option_key];
-                    let isSelected      = false;
-
-                    //@TODO apply select 2 here
-                    if( (values !== undefined) ) {
-                        if( Object.values(values).includes(option_key) ) {
-                            isSelected = true;
-                        }
-                    }
-
-                    return(
-                        <option value={option_key} selected={isSelected}>{ option_label }</option>
-                    )
-                })
-            }
-        </select>
+        <>
+            <Select
+                defaultValue={[{label: 'Ayub', value: 'ayub'}, {label: 'Kibria', value: 'kibria'}]}
+                // onChange={dashboardContext.onChangeInput}
+                onChange={handleChange}
+                options={options}
+                name={data.name + "[]"}
+                loadingIndicator={true}
+                isMulti
+            />
+        </>
     )
 }

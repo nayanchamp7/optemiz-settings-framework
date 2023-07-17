@@ -81,6 +81,8 @@ export default function Container() {
                     value: dataValue
                 };
 
+                const notification = notificationSystem.current;
+
                 axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
                 .then( function (response) {
                     console.log(response);
@@ -88,14 +90,7 @@ export default function Container() {
                     let dataValueObj = {};
 
                     if( data.success ) {
-                        if( data.data.result.length > 0 ) {
-                            console.log(data.data.result);
 
-                            //@TODO need to be dynamic, database value
-                            // dataValueObj = data.data.result;
-                        }
-
-                        const notification = notificationSystem.current;
                         notification.addNotification({
                             title: 'Success!', //@TODO need to be dynamic
                             message: 'Settings Saved', //@TODO need to be dynamic
@@ -161,7 +156,6 @@ export default function Container() {
         event.preventDefault();
 
         setSaveData(true);
-
     }
 
     function onChangeInput(event) {

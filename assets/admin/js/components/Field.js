@@ -8,7 +8,7 @@ import Text from '../components/Fields/Text';
 import Number from '../components/Fields/Number';
 import Radio from '../components/Fields/Radio';
 import Checkbox from '../components/Fields/Checkbox';
-import Select from '../components/Fields/Select';
+import SelectField from '../components/Fields/Select';
 
 export default function Field(props) {
 
@@ -39,7 +39,7 @@ export default function Field(props) {
             );
         }else if( type == 'select' ) {
             return (
-                <Select data={field_item} />
+                <SelectField data={field_item} />
             );
         }
     }
