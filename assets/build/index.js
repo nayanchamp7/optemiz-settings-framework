@@ -2320,7 +2320,6 @@ function Container() {
               ...dataValueObj
             };
           }
-          console.log(parsedValue);
           setDataValue(parsedValue);
         }).catch(function (error) {
           console.log(error);
@@ -2340,7 +2339,6 @@ function Container() {
         };
         const notification = notificationSystem.current;
         axios__WEBPACK_IMPORTED_MODULE_8__["default"].post(opt_dashboard_data.ajaxurl, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-          console.log(response);
           let data = response.data;
           let dataValueObj = {};
           if (data.success) {
@@ -2397,6 +2395,20 @@ function Container() {
     event.preventDefault();
     setSaveData(true);
   }
+  function onChangeSelect(values) {
+    // option name
+
+    console.log(values);
+
+    // old values
+    let currentData = {
+      ...dataValue
+    };
+
+    // update values
+    //setDataValue(currentData);
+  }
+
   function onChangeInput(event) {
     console.log("inside on change input");
     let {
@@ -2411,7 +2423,7 @@ function Container() {
     console.log(checked);
     console.log(value);
     console.log(name);
-    if (type === 'checkbox' || type === 'select') {
+    if (type === 'checkbox') {
       // remove `[]` parenthesis from the name
       name = name.replace(/[\])}[{(]/g, '');
 
@@ -2427,6 +2439,8 @@ function Container() {
     } else {
       currentData[name] = value;
     }
+
+    // update values
     setDataValue(currentData);
   }
   let NotiStyle = {
@@ -2469,7 +2483,8 @@ function Container() {
       apiData,
       onSubmitData,
       dataValue,
-      onChangeInput
+      onChangeInput,
+      onChangeSelect
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Header__WEBPACK_IMPORTED_MODULE_6__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Body__WEBPACK_IMPORTED_MODULE_7__["default"], {
     go: runData
@@ -2793,17 +2808,29 @@ __webpack_require__.r(__webpack_exports__);
 function SelectField(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
   let data = props.data;
-  if (Object.keys(data.options).length === 0) {
+  if (Object.keys(data.options).length === 0 || Object.keys(dashboardContext.dataValue).length === 0) {
     return;
   }
   let values = dashboardContext.dataValue[data.name];
-  let options = [];
-  Object.keys(data.options).map((option_key, index) => {
-    let item = {};
-    item.value = option_key;
-    item.label = data.options[option_key];
-    options.push(item);
-  });
+  const [defaultValues, setDefaultValues] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  function getDefaultValues() {
+    // default values
+    let defaultOptions = [];
+    if (values !== undefined) {
+      Object.keys(values).map((option_key, index) => {
+        let item = {};
+        let value = values[option_key];
+        let ValueObject = data.options.filter(item => item.value.toLowerCase().includes(value));
+        console.log(data.options);
+        console.log(value);
+        console.log(ValueObject);
+        item.value = value;
+        item.label = ValueObject[0].label;
+        defaultOptions.push(item);
+      });
+    }
+    return defaultOptions;
+  }
   const handleChange = newValue => {
     console.log(newValue);
 
@@ -2812,20 +2839,26 @@ function SelectField(props) {
     // return inputValue;
   };
 
+  const promiseOptions = inputValue => {
+    console.log(inputValue);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        // resolve(filterColors(inputValue));
+
+        return data.options;
+      }, 1000);
+    });
+  };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    defaultValue: [{
-      label: 'Ayub',
-      value: 'ayub'
-    }, {
-      label: 'Kibria',
-      value: 'kibria'
-    }]
-    // onChange={dashboardContext.onChangeInput}
+    cacheOptions: true,
+    defaultOptions: true,
+    value: getDefaultValues(),
+    placeholder: data.placeholder,
+    onChange: dashboardContext.onChangeSelect.bind(this),
+    options: data.options,
+    name: data.name + "[]"
+    // loadingIndicator={true}
     ,
-    onChange: handleChange,
-    options: options,
-    name: data.name + "[]",
-    loadingIndicator: true,
     isMulti: true
   }));
 }
@@ -2857,13 +2890,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Text(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
-
-  // console.log('text js');
-  // console.log(dashboardContext);
-
   let data = props.data;
   let value = dashboardContext.dataValue[data.name];
-  console.log(value);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     className: "opt-main-input",
     name: data.name,

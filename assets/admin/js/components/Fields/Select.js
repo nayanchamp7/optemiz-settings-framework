@@ -10,39 +10,78 @@ export default function SelectField(props) {
 
     let data  = props.data;
 
-    if( Object.keys(data.options).length === 0 ) {
+    if( Object.keys(data.options).length === 0 || Object.keys(dashboardContext.dataValue).length === 0 ) {
         return;
     }
 
     let values = dashboardContext.dataValue[data.name];
 
-    let options = [];
-    Object.keys(data.options).map( (option_key, index) => {
-        let item = {}
-        item.value = option_key;
-        item.label = data.options[option_key];
+    const [defaultValues, setDefaultValues] = useState([]);
 
-        options.push(item);
-    });
+    function getDefaultValues() {
+        // default values
+        let defaultOptions = [];
+
+        if( (values !== undefined) ) {
+            Object.keys(values).map( (option_key, index) => {
+                let item = {}
+                let value   = values[option_key];
+
+                let ValueObject = data.options.filter(item=>item.value.toLowerCase().includes(value));
+
+                console.log(data.options);
+                console.log(value);
+                console.log(ValueObject);
+
+                item.value  = value;
+                item.label  = ValueObject[0].label;
+
+                defaultOptions.push(item);
+            });
+        }
+
+        return defaultOptions;
+    }
+
 
     const handleChange = (newValue) => {
 
         console.log(newValue);
+
+
 
         // const inputValue = newValue.replace(/\W/g, "");
         // setInputValue(inputValue);
         // return inputValue;
     };
 
+
+    const promiseOptions = (inputValue) => {
+
+
+        console.log(inputValue);
+
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                // resolve(filterColors(inputValue));
+
+                return data.options;
+            }, 1000);
+        });
+    }
+
+
     return (
         <>
             <Select
-                defaultValue={[{label: 'Ayub', value: 'ayub'}, {label: 'Kibria', value: 'kibria'}]}
-                // onChange={dashboardContext.onChangeInput}
-                onChange={handleChange}
-                options={options}
+                cacheOptions
+                defaultOptions
+                value={getDefaultValues()}
+                placeholder={ data.placeholder }
+                onChange={dashboardContext.onChangeSelect.bind(this)}
+                options={data.options}
                 name={data.name + "[]"}
-                loadingIndicator={true}
+                // loadingIndicator={true}
                 isMulti
             />
         </>

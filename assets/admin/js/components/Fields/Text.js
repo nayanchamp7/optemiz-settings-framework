@@ -8,14 +8,8 @@ export default function Text(props) {
 
     const dashboardContext = useContext(DashboardContext);
 
-
-    // console.log('text js');
-    // console.log(dashboardContext);
-
     let data  = props.data;
     let value = dashboardContext.dataValue[data.name];
-
-    console.log(value);
 
     return (
         <>

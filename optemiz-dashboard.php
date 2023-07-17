@@ -310,7 +310,8 @@ function opt_get_dashboard_data() {
 		[
 			'name' => 'order_tips_donation_members',
 			'type' => 'select',
-			'default_value' => ['ayub', 'daud'],
+			'default_value' => ['ayub', 'kibria'],
+			'placeholder' => 'Select destination',
 			'multiple' => true,
 			'disabled' => false,
 			'required' => false,
@@ -320,11 +321,22 @@ function opt_get_dashboard_data() {
 			'id' => '',
 			'classes' => [],
 			'options' => [
-				'ayub' => 'Ayub Ali',
-				'belal' => 'Belal',
-				'kibria' => 'Kibria',
-				'daud' => 'Daud Kim',
-				'osman' => 'Osman',
+				[
+					'label' => 'Ayub Ali',
+					'value' => 'ayub'
+				],
+				[
+					'label' => 'Osman Khaza',
+					'value' => 'osman'
+				],
+				[
+					'label' => 'Kibria',
+					'value' => 'kibria'
+				],
+				[
+					'label' => 'Daud Kim',
+					'value' => 'daud'
+				],
 			],
 		],
 	]);

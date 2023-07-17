@@ -54,8 +54,6 @@ export default function Container() {
                         parsedValue = { ...defaultValues, ...dataValueObj };
                     }
 
-                    console.log(parsedValue);
-
                     setDataValue(parsedValue);
 
                 })
@@ -85,7 +83,6 @@ export default function Container() {
 
                 axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
                 .then( function (response) {
-                    console.log(response);
                     let data = response.data;
                     let dataValueObj = {};
 
@@ -158,6 +155,20 @@ export default function Container() {
         setSaveData(true);
     }
 
+    function onChangeSelect(values) {
+        // option name
+
+        console.log(values);
+
+        // old values
+        let currentData = { ...dataValue };
+
+
+        // update values
+        //setDataValue(currentData);
+
+    }
+
     function onChangeInput(event) {
 
         console.log("inside on change input");
@@ -169,7 +180,7 @@ export default function Container() {
         console.log(value);
         console.log(name);
 
-        if( type === 'checkbox' || type === 'select' ) {
+        if( type === 'checkbox' ) {
             // remove `[]` parenthesis from the name
             name = name.replace(/[\])}[{(]/g, '');
 
@@ -191,6 +202,7 @@ export default function Container() {
             currentData[name] = value;
         }
 
+        // update values
         setDataValue(currentData);
     }
 
@@ -232,7 +244,7 @@ export default function Container() {
 
     return (
         <DashboardContext.Provider
-            value={{apiData, onSubmitData, dataValue, onChangeInput}}
+            value={{apiData, onSubmitData, dataValue, onChangeInput, onChangeSelect}}
         >
             <Header />
             <Body go={runData}/>
