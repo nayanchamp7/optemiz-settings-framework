@@ -155,6 +155,22 @@ export default function Container() {
         setSaveData(true);
     }
 
+    function onChangeColor({value, item}) {
+        console.log(item);
+
+        // option name
+        let name = item.name;
+
+        // old values
+        let currentData = { ...dataValue };
+
+        // set current value
+        currentData[name] = value;
+
+        // update values
+        setDataValue(currentData);
+    }
+
     function onChangeSelect({value, item}) {
         // option name
         let name = item.name;
@@ -170,19 +186,12 @@ export default function Container() {
             optionValues.push(item);
         });
 
-        // filter value
+        // set current value
         currentData[name] = optionValues;
 
         // update values
         setDataValue(currentData);
 
-    }
-
-    function sanitizeOptionsKey(key) {
-        // remove `[]` parenthesis from the field key
-        key = key.replace(/[\])}[{(]/g, '');
-
-        return key
     }
 
     function onChangeInput(event) {
@@ -196,36 +205,44 @@ export default function Container() {
         // console.log(value);
         // console.log(name);
 
-        let context = dataset.context;
 
-        console.log(context);
+        if( type === 'checkbox'  ) {
+            let context = dataset.context;
 
-        if( type === 'checkbox' && context === 'checkbox' ) {
-            // remove `[]` parenthesis from the name
-            name = sanitizeOptionsKey(name);
+            if( context === 'checkbox' ) {
+                // remove `[]` parenthesis from the name
+                name = sanitizeOptionsKey(name);
 
-            // get the old values
-            let oldValues = currentData[name];
+                // get the old values
+                let oldValues = currentData[name];
 
-            if (checked) {
-                // add to the list
-                currentData[name] = [
-                    ...oldValues,
-                    value,
-                ];
-            } else {
-                // remove from list
-                currentData[name] = oldValues.filter((oldValue) => oldValue !== value);
+                if (checked) {
+                    // add to the list
+                    currentData[name] = [
+                        ...oldValues,
+                        value,
+                    ];
+                } else {
+                    // remove from list
+                    currentData[name] = oldValues.filter((oldValue) => oldValue !== value);
+                }
+            }else if( context === 'switch' ) {
+                currentData[name] = (value == 1) ? 0 : 1;
             }
 
-        }else if( type === 'checkbox' && context === 'switch' ) {
-            currentData[name] = (value == 1) ? 0 : 1;
         }else {
             currentData[name] = value;
         }
 
         // update values
         setDataValue(currentData);
+    }
+
+    function sanitizeOptionsKey(key) {
+        // remove `[]` parenthesis from the field key
+        key = key.replace(/[\])}[{(]/g, '');
+
+        return key
     }
 
     let NotiStyle = {

@@ -10,6 +10,7 @@ import Radio from '../components/Fields/Radio';
 import Checkbox from '../components/Fields/Checkbox';
 import Switch from '../components/Fields/Switch';
 import SelectField from '../components/Fields/Select';
+import Color from '../components/Fields/Color';
 
 export default function Field(props) {
 
@@ -41,6 +42,10 @@ export default function Field(props) {
         }else if( type == 'switch' ) {
             return (
                 <Switch data={field_item} />
+            );
+        }else if( type == 'color' ) {
+            return (
+                <Color data={field_item} />
             );
         }else if( type == 'select' ) {
             return (

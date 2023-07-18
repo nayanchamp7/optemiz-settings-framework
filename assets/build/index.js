@@ -2395,11 +2395,32 @@ function Container() {
     event.preventDefault();
     setSaveData(true);
   }
-  function onChangeSelect(_ref) {
+  function onChangeColor(_ref) {
     let {
       value,
       item
     } = _ref;
+    console.log(item);
+
+    // option name
+    let name = item.name;
+
+    // old values
+    let currentData = {
+      ...dataValue
+    };
+
+    // set current value
+    currentData[name] = value;
+
+    // update values
+    setDataValue(currentData);
+  }
+  function onChangeSelect(_ref2) {
+    let {
+      value,
+      item
+    } = _ref2;
     // option name
     let name = item.name;
     name = sanitizeOptionsKey(name);
@@ -2416,16 +2437,11 @@ function Container() {
       optionValues.push(item);
     });
 
-    // filter value
+    // set current value
     currentData[name] = optionValues;
 
     // update values
     setDataValue(currentData);
-  }
-  function sanitizeOptionsKey(key) {
-    // remove `[]` parenthesis from the field key
-    key = key.replace(/[\])}[{(]/g, '');
-    return key;
   }
   function onChangeInput(event) {
     console.log("inside on change input");
@@ -2444,29 +2460,35 @@ function Container() {
     // console.log(value);
     // console.log(name);
 
-    let context = dataset.context;
-    console.log(context);
-    if (type === 'checkbox' && context === 'checkbox') {
-      // remove `[]` parenthesis from the name
-      name = sanitizeOptionsKey(name);
+    if (type === 'checkbox') {
+      let context = dataset.context;
+      if (context === 'checkbox') {
+        // remove `[]` parenthesis from the name
+        name = sanitizeOptionsKey(name);
 
-      // get the old values
-      let oldValues = currentData[name];
-      if (checked) {
-        // add to the list
-        currentData[name] = [...oldValues, value];
-      } else {
-        // remove from list
-        currentData[name] = oldValues.filter(oldValue => oldValue !== value);
+        // get the old values
+        let oldValues = currentData[name];
+        if (checked) {
+          // add to the list
+          currentData[name] = [...oldValues, value];
+        } else {
+          // remove from list
+          currentData[name] = oldValues.filter(oldValue => oldValue !== value);
+        }
+      } else if (context === 'switch') {
+        currentData[name] = value == 1 ? 0 : 1;
       }
-    } else if (type === 'checkbox' && context === 'switch') {
-      currentData[name] = value == 1 ? 0 : 1;
     } else {
       currentData[name] = value;
     }
 
     // update values
     setDataValue(currentData);
+  }
+  function sanitizeOptionsKey(key) {
+    // remove `[]` parenthesis from the field key
+    key = key.replace(/[\])}[{(]/g, '');
+    return key;
   }
   let NotiStyle = {
     Containers: {
@@ -2545,6 +2567,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Fields_Checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Fields/Checkbox */ "./assets/admin/js/components/Fields/Checkbox.js");
 /* harmony import */ var _components_Fields_Switch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Fields/Switch */ "./assets/admin/js/components/Fields/Switch.js");
 /* harmony import */ var _components_Fields_Select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Fields/Select */ "./assets/admin/js/components/Fields/Select.js");
+/* harmony import */ var _components_Fields_Color__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Fields/Color */ "./assets/admin/js/components/Fields/Color.js");
+
 
 
 
@@ -2583,6 +2607,10 @@ function Field(props) {
       });
     } else if (type == 'switch') {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Switch__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        data: field_item
+      });
+    } else if (type == 'color') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Color__WEBPACK_IMPORTED_MODULE_10__["default"], {
         data: field_item
       });
     } else if (type == 'select') {
@@ -2725,6 +2753,45 @@ function Checkbox(props) {
       type: "checkbox"
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, label));
   }));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Fields/Color.js":
+/*!****************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Color.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Color; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
+
+
+
+
+
+function Color(props) {
+  const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
+  let data = props.data;
+  let value = dashboardContext.dataValue[data.name];
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    class: "opt-color-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    name: data.name,
+    value: value,
+    type: "color",
+    onChange: dashboardContext.onChangeInput
+  })));
 }
 
 /***/ }),
