@@ -10,7 +10,7 @@ export default function SelectField(props) {
 
     let data  = props.data;
 
-    if( Object.keys(data.options).length === 0 || Object.keys(dashboardContext.dataValue).length === 0 ) {
+    if( Object.keys(data.options).length === 0 ) {
         return;
     }
 

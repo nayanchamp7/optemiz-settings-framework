@@ -16,11 +16,11 @@ export default function Switch(props) {
             <label class="opt-switch-field">
                 <input
                     name={data.name}
-                    value={value === 1 ? 1 : 0}
+                    value={parseInt(value) === 1 ? 1 : 0}
                     type="checkbox"
                     data-context="switch"
                     onChange={dashboardContext.onChangeInput}
-                    checked={value == 1}
+                    checked={parseInt(value) === 1}
                     />
                 <span class="opt-slider opt-slider-round"></span>
             </label>

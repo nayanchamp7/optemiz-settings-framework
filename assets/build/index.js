@@ -2907,7 +2907,7 @@ __webpack_require__.r(__webpack_exports__);
 function SelectField(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
   let data = props.data;
-  if (Object.keys(data.options).length === 0 || Object.keys(dashboardContext.dataValue).length === 0) {
+  if (Object.keys(data.options).length === 0) {
     return;
   }
   let values = dashboardContext.dataValue[data.name];
@@ -2984,11 +2984,11 @@ function Switch(props) {
     class: "opt-switch-field"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     name: data.name,
-    value: value === 1 ? 1 : 0,
+    value: parseInt(value) === 1 ? 1 : 0,
     type: "checkbox",
     "data-context": "switch",
     onChange: dashboardContext.onChangeInput,
-    checked: value == 1
+    checked: parseInt(value) === 1
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     class: "opt-slider opt-slider-round"
   })));
