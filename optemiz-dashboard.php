@@ -220,6 +220,23 @@ function opt_get_dashboard_data() {
 
 	OptemizDashboard::createOptions('order_tips', 'init', [
 		[
+			'name' => 'order_tips_enable',
+			'type' => 'switch',
+			'default_value' => 1, // 1 / 0 should be here
+			'placeholder' => '',
+			'disabled' => false,
+			'required' => false,
+			'min' => '',
+			'max' => '',
+			'step' => '',
+			'label' => 'Enable Order Tips',
+			'description' => 'Your order tips should be here.',
+			'css' => '',
+			'id' => '',
+			'classes' => [],
+			'options' => [],
+		],
+		[
 			'name' => 'order_tips_first_name',
 			'type' => 'text',
 			'default_value' => 'First Name',

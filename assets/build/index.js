@@ -2433,15 +2433,20 @@ function Container() {
       value,
       name,
       type,
-      checked
+      checked,
+      dataset
     } = event.target;
     let currentData = {
       ...dataValue
     };
-    console.log(checked);
-    console.log(value);
-    console.log(name);
-    if (type === 'checkbox') {
+
+    // console.log(checked);
+    // console.log(value);
+    // console.log(name);
+
+    let context = dataset.context;
+    console.log(context);
+    if (type === 'checkbox' && context === 'checkbox') {
       // remove `[]` parenthesis from the name
       name = sanitizeOptionsKey(name);
 
@@ -2454,6 +2459,8 @@ function Container() {
         // remove from list
         currentData[name] = oldValues.filter(oldValue => oldValue !== value);
       }
+    } else if (type === 'checkbox' && context === 'switch') {
+      currentData[name] = value == 1 ? 0 : 1;
     } else {
       currentData[name] = value;
     }
@@ -2536,7 +2543,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Fields_Number__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Fields/Number */ "./assets/admin/js/components/Fields/Number.js");
 /* harmony import */ var _components_Fields_Radio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Fields/Radio */ "./assets/admin/js/components/Fields/Radio.js");
 /* harmony import */ var _components_Fields_Checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Fields/Checkbox */ "./assets/admin/js/components/Fields/Checkbox.js");
-/* harmony import */ var _components_Fields_Select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Fields/Select */ "./assets/admin/js/components/Fields/Select.js");
+/* harmony import */ var _components_Fields_Switch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Fields/Switch */ "./assets/admin/js/components/Fields/Switch.js");
+/* harmony import */ var _components_Fields_Select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Fields/Select */ "./assets/admin/js/components/Fields/Select.js");
+
 
 
 
@@ -2572,8 +2581,12 @@ function Field(props) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Checkbox__WEBPACK_IMPORTED_MODULE_7__["default"], {
         data: field_item
       });
+    } else if (type == 'switch') {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Switch__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        data: field_item
+      });
     } else if (type == 'select') {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Select__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Fields_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
         data: field_item
       });
     }
@@ -2708,6 +2721,7 @@ function Checkbox(props) {
       value: option_key,
       checked: isChecked,
       onChange: dashboardContext.onChangeInput,
+      "data-context": "checkbox",
       type: "checkbox"
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, label));
   }));
@@ -2868,6 +2882,49 @@ function SelectField(props) {
     ,
     isMulti: true
   }));
+}
+
+/***/ }),
+
+/***/ "./assets/admin/js/components/Fields/Switch.js":
+/*!*****************************************************!*\
+  !*** ./assets/admin/js/components/Fields/Switch.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Switch; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
+
+
+
+
+
+function Switch(props) {
+  const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
+  let data = props.data;
+  let value = dashboardContext.dataValue[data.name];
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    class: "opt-switch-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    name: data.name,
+    value: value === 1 ? 1 : 0,
+    type: "checkbox",
+    "data-context": "switch",
+    onChange: dashboardContext.onChangeInput,
+    checked: value == 1
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: "opt-slider opt-slider-round"
+  })));
 }
 
 /***/ }),

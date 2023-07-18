@@ -28,7 +28,6 @@ export default function FieldContent(props) {
 
             Object.keys(field_item).map(function(field_item_key, key) {
 
-
                 let tab_item = field_item[field_item_key];
 
                 // console.log(tab_item);

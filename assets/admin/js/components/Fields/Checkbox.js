@@ -37,6 +37,7 @@ export default function Checkbox(props) {
                                 value={option_key}
                                 checked={isChecked}
                                 onChange={dashboardContext.onChangeInput}
+                                data-context="checkbox"
                                 type="checkbox" />
                             <span>{ label }</span>
                         </li>

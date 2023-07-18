@@ -189,14 +189,18 @@ export default function Container() {
 
         console.log("inside on change input");
 
-        let { value, name, type, checked } = event.target;
+        let { value, name, type, checked, dataset } = event.target;
         let currentData = { ...dataValue };
 
-        console.log(checked);
-        console.log(value);
-        console.log(name);
+        // console.log(checked);
+        // console.log(value);
+        // console.log(name);
 
-        if( type === 'checkbox' ) {
+        let context = dataset.context;
+
+        console.log(context);
+
+        if( type === 'checkbox' && context === 'checkbox' ) {
             // remove `[]` parenthesis from the name
             name = sanitizeOptionsKey(name);
 
@@ -214,6 +218,8 @@ export default function Container() {
                 currentData[name] = oldValues.filter((oldValue) => oldValue !== value);
             }
 
+        }else if( type === 'checkbox' && context === 'switch' ) {
+            currentData[name] = (value == 1) ? 0 : 1;
         }else {
             currentData[name] = value;
         }
