@@ -2919,15 +2919,20 @@ function SelectField(props) {
       Object.keys(values).map((option_key, index) => {
         let item = {};
         let value = values[option_key];
-        let ValueObject = data.options.filter(item => item.value.toLowerCase().includes(value));
+        let lowerCaseValue = value.toLowerCase();
+        console.log(lowerCaseValue);
+        let ValueObject = data.options.filter(item => item.value.toLowerCase().includes(lowerCaseValue));
+        console.log(ValueObject[0]);
 
         // console.log(data.options);
         // console.log(value);
         // console.log(ValueObject);
 
-        item.value = value;
-        item.label = ValueObject[0].label;
-        defaultOptions.push(item);
+        if (ValueObject[0] !== undefined) {
+          item.value = value;
+          item.label = ValueObject[0].label;
+          defaultOptions.push(item);
+        }
       });
     }
     return defaultOptions;

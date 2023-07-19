@@ -26,17 +26,26 @@ export default function SelectField(props) {
             Object.keys(values).map( (option_key, index) => {
                 let item = {}
                 let value   = values[option_key];
+                let lowerCaseValue = value.toLowerCase();
 
-                let ValueObject = data.options.filter(item=>item.value.toLowerCase().includes(value));
+                console.log(lowerCaseValue);
+
+                let ValueObject = data.options.filter(item=>item.value.toLowerCase().includes(lowerCaseValue));
+
+                console.log(ValueObject[0]);
 
                 // console.log(data.options);
                 // console.log(value);
                 // console.log(ValueObject);
 
-                item.value  = value;
-                item.label  = ValueObject[0].label;
+                if( ValueObject[0] !== undefined ) {
+                    item.value  = value;
+                    item.label  = ValueObject[0].label;
 
-                defaultOptions.push(item);
+                    defaultOptions.push(item);
+                }
+
+
             });
         }
 
