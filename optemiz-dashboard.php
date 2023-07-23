@@ -258,7 +258,7 @@ function opt_get_dashboard_data() {
 			'type' => 'select',
 			'default_value' => ['C39'],
 			'placeholder' => __( 'Select barcode position', 'order-manager-for-woocommerce' ),
-			'multiple' => true,
+			'multiple' => false,
 			'disabled' => false,
 			'required' => false,
 			'label' => __( 'Order Barcode Type', 'order-manager-for-woocommerce' ),

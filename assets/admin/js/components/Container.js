@@ -176,15 +176,23 @@ export default function Container() {
         let name = item.name;
             name = sanitizeOptionsKey(name);
 
+            console.log(item);
+
         // old values
         let currentData = { ...dataValue };
 
+        console.log(value);
+
         // sync values
         let optionValues = [];
-        Object.keys(value).forEach(function(key) {
-            let item = value[key].value;
-            optionValues.push(item);
-        });
+        if( value.length > 1 ) {
+            Object.keys(value).forEach(function(key) {
+                let item = value[key].value;
+                optionValues.push(item);
+            });
+        }else {
+            optionValues[0] = Array.isArray(value) ? value[0].value : value.value;
+        }
 
         // set current value
         currentData[name] = optionValues;
