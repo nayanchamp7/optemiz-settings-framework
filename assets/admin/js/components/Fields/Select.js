@@ -22,10 +22,16 @@ export default function SelectField(props) {
         // default values
         let defaultOptions = [];
 
+        console.log(values);
+
         if( (values !== undefined) ) {
             Object.keys(values).map( (option_key, index) => {
                 let item = {}
                 let value   = values[option_key];
+
+                // console.log(values);
+                // console.log(option_key);
+                // console.log(value);
                 let lowerCaseValue = value.toLowerCase();
 
                 console.log(lowerCaseValue);
@@ -64,8 +70,9 @@ export default function SelectField(props) {
                 }}
                 options={data.options}
                 name={data.name + "[]"}
+                multi={data.multiple}
                 // loadingIndicator={true}
-                isMulti
+                isMulti={data.multiple}
             />
         </>
     )

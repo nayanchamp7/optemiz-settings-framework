@@ -2424,18 +2424,24 @@ function Container() {
     // option name
     let name = item.name;
     name = sanitizeOptionsKey(name);
+    console.log(item);
 
     // old values
     let currentData = {
       ...dataValue
     };
+    console.log(value);
 
     // sync values
     let optionValues = [];
-    Object.keys(value).forEach(function (key) {
-      let item = value[key].value;
-      optionValues.push(item);
-    });
+    if (value.length > 1) {
+      Object.keys(value).forEach(function (key) {
+        let item = value[key].value;
+        optionValues.push(item);
+      });
+    } else {
+      optionValues[0] = Array.isArray(value) ? value[0].value : value.value;
+    }
 
     // set current value
     currentData[name] = optionValues;
@@ -2915,10 +2921,15 @@ function SelectField(props) {
   function getDefaultValues() {
     // default values
     let defaultOptions = [];
+    console.log(values);
     if (values !== undefined) {
       Object.keys(values).map((option_key, index) => {
         let item = {};
         let value = values[option_key];
+
+        // console.log(values);
+        // console.log(option_key);
+        // console.log(value);
         let lowerCaseValue = value.toLowerCase();
         console.log(lowerCaseValue);
         let ValueObject = data.options.filter(item => item.value.toLowerCase().includes(lowerCaseValue));
@@ -2949,10 +2960,11 @@ function SelectField(props) {
       });
     },
     options: data.options,
-    name: data.name + "[]"
+    name: data.name + "[]",
+    multi: data.multiple
     // loadingIndicator={true}
     ,
-    isMulti: true
+    isMulti: data.multiple
   }));
 }
 
