@@ -80,27 +80,27 @@ class OptemizDashboard {
         ];
 
         //enqueue settings styles
-        wp_enqueue_style('opt-dashboard-style', OPT_PLUGIN_URL . '/assets/admin/css/style.css' );
-        wp_enqueue_style('opt-dashboard-select2-style', OPT_PLUGIN_URL . '/assets/admin/css/select2.min.css' );
+        wp_enqueue_style('opt-dashboard-style', OSF_URL . '/assets/admin/css/style.css' );
+        wp_enqueue_style('opt-dashboard-select2-style', OSF_URL . '/assets/admin/css/select2.min.css' );
         wp_enqueue_style( 'opt-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap', [], null );
 
 
 
         // include dependencies file
-        if ( file_exists( OPT_PLUGIN_PATH . '/assets/build/index.asset.php' ) ) {
-            $script_dependencies = require OPT_PLUGIN_PATH . '/assets/build/index.asset.php';
+        if ( file_exists( OSF_PATH . '/assets/build/index.asset.php' ) ) {
+            $script_dependencies = require OSF_PATH . '/assets/build/index.asset.php';
         }
 
         //enqueue settings scripts
-        wp_enqueue_script( 'opt-dashboard', OPT_PLUGIN_URL . '/assets/build/index.js' , $script_dependencies['dependencies'], $script_dependencies['version'] );
-        wp_enqueue_script( 'opt-dashboard-select2', OPT_PLUGIN_URL . '/assets/admin/js/select2.min.js' , array('jquery'), '1.0.0' );
+        wp_enqueue_script( 'opt-dashboard', OSF_URL . '/assets/build/index.js' , $script_dependencies['dependencies'], $script_dependencies['version'] );
+        wp_enqueue_script( 'opt-dashboard-select2', OSF_URL . '/assets/admin/js/select2.min.js' , array('jquery'), '1.0.0' );
 
         wp_localize_script('opt-dashboard', 'opt_dashboard_data', [
             'ajaxurl'       => admin_url( 'admin-ajax.php' ),
             'homeurl'       => esc_url( home_url() ),
             'nonce'         => wp_create_nonce( 'opt_admin_data' ),
-            'plugin_url' 	=> OPT_PLUGIN_URL,
-            'plugin_path' 	=> OPT_PLUGIN_PATH,
+            'plugin_url' 	=> OSF_URL,
+            'plugin_path' 	=> OSF_PATH,
             'settings' 		=> OptemizSettings::get(),
         ]);
     }
@@ -176,7 +176,7 @@ class OptemizDashboard {
      * @return void
      */
     function loadTemplate() {
-        include OPT_PLUGIN_PATH . '/templates/opt-dashboard.php';
+        include OSF_PATH . '/templates/opt-dashboard.php';
     }
 
 	/**
