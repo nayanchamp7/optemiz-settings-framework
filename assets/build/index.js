@@ -2294,6 +2294,7 @@ function Container() {
   const [dataValue, setDataValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [runData, setRunData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [saveData, setSaveData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [resetData, setResetData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [runX, setRunX] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('one');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     async function fetchData() {
@@ -2360,6 +2361,41 @@ function Container() {
     }
     updateData();
   }, [saveData]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    async function runResetData() {
+      if (resetData) {
+        let defaultValues = await optGetDefaultData();
+        var data = {
+          action: 'opt_update_settings_data',
+          key: opt_dashboard_data.settings.key,
+          value: defaultValues
+        };
+        const notification = notificationSystem.current;
+        axios__WEBPACK_IMPORTED_MODULE_8__["default"].post(opt_dashboard_data.ajaxurl, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+          let data = response.data;
+          let dataValueObj = {};
+          console.log('reset done');
+          if (data.success) {
+            notification.addNotification({
+              title: 'Success!',
+              //@TODO need to be dynamic
+              message: 'Settings Reset',
+              //@TODO need to be dynamic
+              level: 'success',
+              position: 'br',
+              autoDismiss: 2
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // reset data state to false
+        setResetData(false);
+      }
+    }
+    runResetData();
+  }, [resetData]);
   async function optGetDefaultData() {
     let field_data = {};
     let items = opt_dashboard_data.settings.form.items;
@@ -2394,6 +2430,13 @@ function Container() {
   function onSubmitData(event) {
     event.preventDefault();
     setSaveData(true);
+  }
+  function onResetData(event) {
+    event.preventDefault();
+    let letsReset = confirm('Do you want to reset your settings?');
+    if (letsReset) {
+      setResetData(true);
+    }
   }
   function onChangeColor(_ref) {
     let {
@@ -2535,6 +2578,7 @@ function Container() {
     value: {
       apiData,
       onSubmitData,
+      onResetData,
       dataValue,
       onChangeInput,
       onChangeSelect
@@ -3276,11 +3320,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/DashboardContext */ "./assets/admin/js/context/DashboardContext.js");
+
 
 
 
 
 function SubmitButtons(props) {
+  const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "opt-main-items-button"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -3290,7 +3337,7 @@ function SubmitButtons(props) {
     type: "submit"
   }, "Save Changes"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     className: "opt-main-content-bottom-anchor",
-    href: ""
+    onClick: dashboardContext.onResetData
   }, "Reset Settings")));
 }
 

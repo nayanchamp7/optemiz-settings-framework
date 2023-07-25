@@ -23,6 +23,7 @@ export default function Container() {
     const [dataValue, setDataValue] = useState({});
     const [runData, setRunData] = useState(true);
     const [saveData, setSaveData] = useState(false);
+    const [resetData, setResetData] = useState(false);
     const [runX, setRunX] = useState('one');
 
     useEffect( () => {
@@ -109,6 +110,52 @@ export default function Container() {
         updateData();
     }, [saveData])
 
+    useEffect( () => {
+
+        async function runResetData() {
+            if( resetData ) {
+
+                let defaultValues = await optGetDefaultData();
+
+                var data = {
+                    action: 'opt_update_settings_data',
+                    key: opt_dashboard_data.settings.key,
+                    value: defaultValues
+                };
+
+                const notification = notificationSystem.current;
+
+                axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
+                .then( function (response) {
+                    let data = response.data;
+                    let dataValueObj = {};
+
+                    console.log('reset done');
+
+                    if( data.success ) {
+
+                        notification.addNotification({
+                            title: 'Success!', //@TODO need to be dynamic
+                            message: 'Settings Reset', //@TODO need to be dynamic
+                            level: 'success',
+                            position: 'br',
+                            autoDismiss: 2,
+                        });
+                    }
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+                // reset data state to false
+                setResetData(false);
+            }
+        }
+
+        runResetData();
+    }, [resetData])
+
     async function optGetDefaultData() {
         let field_data = {};
         let items = opt_dashboard_data.settings.form.items;
@@ -153,6 +200,17 @@ export default function Container() {
         event.preventDefault();
 
         setSaveData(true);
+    }
+
+    function onResetData(event) {
+        event.preventDefault();
+
+        let letsReset = confirm('Do you want to reset your settings?');
+
+        if( letsReset ) {
+            setResetData(true);
+        }
+
     }
 
     function onChangeColor({value, item}) {
@@ -291,7 +349,7 @@ export default function Container() {
 
     return (
         <DashboardContext.Provider
-            value={{apiData, onSubmitData, dataValue, onChangeInput, onChangeSelect}}
+            value={{apiData, onSubmitData, onResetData, dataValue, onChangeInput, onChangeSelect}}
         >
             <Header />
             <Body go={runData}/>
