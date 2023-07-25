@@ -30,8 +30,11 @@ class OptemizSettings {
     public function __construct() {
     }
 
-    // instance
-	static function instance()
+	/**
+     * OptemizSettings instance.
+     *
+     */
+	public static function instance()
 	{
 		if (is_null(self::$_instance)) {
 			self::$_instance = new self();
