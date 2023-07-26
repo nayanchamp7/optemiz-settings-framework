@@ -93,7 +93,7 @@
   width: 100%;
 }
 .opt-main-container .opt-body .opt-body-left-child .left-sidebar {
-  width: 200px;
+  width: 245px;
   margin-left: 0px;
   padding-top: 24px;
   padding-left: 32px;
@@ -144,7 +144,7 @@
   color: #8794A7;
 }
 .opt-main-container .opt-body .opt-body-left-child .opt-main-content-area {
-  width: calc(100% - 210px);
+  width: calc(100% - 255px);
   margin-left: 8px;
   background: #FFFFFF;
   border-radius: 4px 4px 0px 0px;
