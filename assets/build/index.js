@@ -2224,10 +2224,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function Body() {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
-  const opt_form = dashboardContext.apiData.localData.settings.form;
+  const settings = dashboardContext.apiData.localData.settings;
+  const opt_form = settings.form;
   let menu_content_items = opt_form.items;
+  let classes = ["opt-body", "opt-dashboard-form"];
+  if (settings.args.sidebar) {
+    classes.push("opt-is-sidebar");
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
-    className: "opt-body opt-dashboard-form",
+    className: classes.join(" "),
     onSubmit: dashboardContext.onSubmitData,
     enctype: "multipart/form-data"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -3140,7 +3145,7 @@ function Header() {
     className: "top-bar-content"
   }, opt_header.heading, " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "opt-topbar-version"
-  }, opt_header.version))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, opt_header.version))), opt_header.buttons.upgrade_to_pro && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "opt-top-right-side"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     className: "top-bar-btn",
@@ -3389,7 +3394,7 @@ function Tab() {
           "data-main-menu": key,
           onClick: onClickTab
         }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-          src: opt_dashboard_data.plugin_url + "/assets/images/General.png",
+          src: opt_dashboard_data.plugin_url + "/assets/images/" + key + ".svg",
           alt: ""
         }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
           className: "opt-sidebar-text"

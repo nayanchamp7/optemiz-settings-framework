@@ -12,13 +12,19 @@ import SubmitButtons from './SubmitButtons';
 export default function Body() {
 
     const dashboardContext = useContext(DashboardContext);
-    const opt_form = dashboardContext.apiData.localData.settings.form;
+    const settings = dashboardContext.apiData.localData.settings;
+    const opt_form = settings.form;
     let menu_content_items = opt_form.items;
+    let classes = ["opt-body", "opt-dashboard-form"];
+
+    if( settings.args.sidebar ) {
+        classes.push("opt-is-sidebar");
+    }
 
     return (
         <Fragment>
             <form
-            className="opt-body opt-dashboard-form"
+            className={ classes.join(" ") }
             onSubmit={dashboardContext.onSubmitData}
             enctype="multipart/form-data"
             >

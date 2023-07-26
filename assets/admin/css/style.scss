@@ -6,15 +6,13 @@
     box-sizing: border-box;
 }
 
-
-
 // primary button
 .top-bar-btn{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: $top-bar-btn;
+    background-color: $base-color;
     padding:12px 16px;
     border-radius: 4px;
     border: none;
@@ -24,13 +22,13 @@
     font-size: 16px;
     line-height: 19px;
     cursor: pointer;
-    color: #F6ECFF;
+    color: $btn-bg-color-light;
     text-decoration: none;
     transition: .2s ease-in-out;
 
     &:hover{
-        background-color: #54128a;
-        color: #F6ECFF;;
+        background-color: $base-color;
+        color: $btn-bg-color-light;
     }
 
     .opt-top-bar-text{
@@ -79,7 +77,7 @@
 
                 .opt-topbar-version {
                     font-size: 12px;
-                    background: #f4e9fd;
+                    background: $btn-bg-color-light;
                     padding: 2px 5px;
                     color: #000;
                 }
@@ -98,8 +96,7 @@
         .opt-body-left-child{
             display: flex;
             flex-wrap: wrap;
-            width: calc(100% - 265px);
-            
+            width: 100%;
 
             .left-sidebar{
                 width: 200px;
@@ -139,9 +136,13 @@
                                 font-weight: 600;
                                 font-size: 16px;
                                 line-height: 19px;
-                                color:#680DB4;
+                                color:$base-color;
                             }
 
+                        }
+
+                        img {
+                            width: 24px;
                         }
                         .opt-sidebar-text{
                             font-family: 'Inter';
@@ -181,13 +182,13 @@
                             font-weight: 600;
                             font-size: 14px;
                             line-height: 17px;
-                            color:#771CC4;
+                            color:$base-color;
                             padding: 16px;
                             text-decoration: none;
                             cursor: pointer;
                         }
                         .opt-main-content-li-active{
-                            border-bottom: 1px solid #771CC4;
+                            border-bottom: 1px solid $base-color;
                         }
                     }
                     .opt-main-items{
@@ -229,7 +230,7 @@
                                 background: #F7F8F9;
 
                                 &:focus{
-                                    outline: 1px solid #771CC4;
+                                    outline: 1px solid $base-color;
                                 }
 
                             }
@@ -261,7 +262,7 @@
                                 width: 45px;
                                 height: 26px;
 
-                                input { 
+                                input {
                                     opacity: 0;
                                     width: 0;
                                     height: 0;
@@ -300,7 +301,7 @@
                                 }
 
                                 input:checked + .opt-slider-round {
-                                    background-color: $top-bar-btn; 
+                                    background-color: $base-color;
                                 }
 
                                 input:checked + .opt-slider-round:before {
@@ -336,13 +337,15 @@
                             font-weight: 600;
                             font-size: 14px;
                             line-height: 17px;
-                            color:  #680DB4;
-                            border: 1px solid #680DB4;
+                            background-color:  $base-color;
+                            color:  #fff;
+                            border: 1px solid $base-color;
                             border-radius: 4px;
                             cursor: pointer;
                             transition: .2s ease-in-out;
                             &:hover{
-                                background-color: #dcdada;
+                                background-color: #fff;
+                                color: $base-color;
                             }
                         }
                         .opt-main-content-bottom-anchor{
@@ -358,6 +361,7 @@
                             border: 1px solid #EF4444;
                             border-radius: 4px ;
                             transition: .2s ease-in-out;
+                            cursor: pointer;
 
                             &:hover{
                                 background-color: #f0f0f0;
@@ -368,8 +372,9 @@
             }
 
         }
+
         .opt-body-right-child{
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: flex-start;
             width: 265px;
@@ -419,7 +424,7 @@
                     display: inline-block;
                     padding: 12px 16px;
                     gap: 20px;
-                    background: #F6ECFF;
+                    background: $btn-bg-color-light;
                     border-radius: 4px;
                     margin-top: 15px;
                     text-decoration: none;
@@ -430,17 +435,28 @@
                         font-weight: 600;
                         font-size: 14px;
                         line-height: 17px;
-                        color: #680DB4;
-                        
+                        color: $base-color;
+
 
                     }
                     &:hover{
-                        background-color: #e6d3f7;
+                        background-color: $btn-bg-hover-color-light;
                     }
                 }
             }
             }
         }
+
+        &.opt-is-sidebar {
+            .opt-body-left-child{
+                width: calc(100% - 265px);
+            }
+            .opt-body-right-child{
+                display: flex;
+            }
+
+        }
+
     }
 }
 
@@ -484,7 +500,7 @@
                     margin-left: 100px;
 
                     &:focus{
-                        outline: 1px solid #771CC4;
+                        outline: 1px solid $base-color;
                     }
                     &::-webkit-input-placeholder{
                         font-family: 'Roboto';
