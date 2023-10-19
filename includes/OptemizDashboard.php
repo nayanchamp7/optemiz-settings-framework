@@ -121,6 +121,9 @@ class OptemizDashboard {
      */
     function getData() {
 
+		error_log('--- get data ---');
+		error_log(print_r($_POST, true));
+
         if( !isset($_POST['key']) ) {
             return;
         }
