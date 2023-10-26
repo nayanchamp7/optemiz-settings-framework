@@ -155,7 +155,7 @@ class OptemizDashboard {
 
         $data 	= [];
         $key 	= wp_unslash($_POST['key']);
-        $value 	= $_POST['value'];
+        $value 	= sanitize_text_field($_POST['value']);
 
         $updated = update_option($key, json_encode($value));
 
