@@ -4,7 +4,7 @@ use OptDashboard\OptemizSettings;
 use OptDashboard\OptemizTab;
 use OptDashboard\OptemizSubTab;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! defined( 'OSF_URL' ) ) {
 	define( 'OSF_URL', plugins_url( '', __FILE__ ) );

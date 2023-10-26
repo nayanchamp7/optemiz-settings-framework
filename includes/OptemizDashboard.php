@@ -2,7 +2,7 @@
 
 namespace OptDashboard;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class OptemizDashboard
@@ -121,9 +121,6 @@ class OptemizDashboard {
      */
     function getData() {
 
-		error_log('--- get data ---');
-		error_log(print_r($_POST, true));
-
         if( !isset($_POST['key']) ) {
             return;
         }
@@ -159,9 +156,6 @@ class OptemizDashboard {
         $data 	= [];
         $key 	= wp_unslash($_POST['key']);
         $value 	= $_POST['value'];
-
-        error_log( print_r($key, true) );
-        error_log( print_r($value, true) );
 
         $updated = update_option($key, json_encode($value));
 
