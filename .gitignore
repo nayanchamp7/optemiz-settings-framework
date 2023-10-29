@@ -1,6 +1,7 @@
 .svnignore
 .DS_Store
 node_modules
+*/.DS_Store
 
 # local env files
 .env.local
@@ -32,4 +33,13 @@ ehthumbs.db
 Thumbs.db
 faq-woocommerce.php
 
-/vendor/
+# Project files
+node_modules/
+vendor/
+languages/
+
+# TypeScript files
+tsconfig.tsbuildinfo
+
+# Node Package Dependencies
+package-lock.json

@@ -121,6 +121,10 @@ class OptemizDashboard {
      */
     function getData() {
 
+		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'nonce' ) ) {
+            wp_send_json_error( __('Security Check Failed') );
+        }
+
         if( !isset($_POST['key']) ) {
             return;
         }
@@ -144,6 +148,10 @@ class OptemizDashboard {
      *
      */
     function updateData() {
+
+		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'nonce' ) ) {
+            wp_send_json_error( __('Security Check Failed') );
+        }
 
         if( !isset($_POST['key']) ) {
             return;

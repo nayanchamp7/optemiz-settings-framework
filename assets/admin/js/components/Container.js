@@ -37,6 +37,7 @@ export default function Container() {
                 var data = {
                     action: 'opt_get_settings_data',
                     key: opt_dashboard_data.settings.key,
+					nonce: opt_dashboard_data.nonce
                 };
 
                 axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
@@ -77,7 +78,8 @@ export default function Container() {
                 var data = {
                     action: 'opt_update_settings_data',
                     key: opt_dashboard_data.settings.key,
-                    value: dataValue
+                    value: dataValue,
+					nonce: opt_dashboard_data.nonce
                 };
 
                 const notification = notificationSystem.current;
