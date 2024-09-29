@@ -35,7 +35,6 @@ faq-woocommerce.php
 
 # Project files
 node_modules/
-vendor/
 languages/
 
 # TypeScript files
