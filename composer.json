@@ -1,7 +1,7 @@
 {
     "name": "optemiz/dashboard",
     "description" : "Plugin settings page.",
-    "version" : "1.0.1",
+    "version" : "1.0.2",
     "autoload": {
         "psr-4": {
             "OptDashboard\\": "includes/"
