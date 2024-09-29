@@ -121,7 +121,7 @@ class OptemizDashboard {
      */
     function getData() {
 
-		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'nonce' ) ) {
+		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'opt_admin_data' ) ) {
             wp_send_json_error( __('Security Check Failed') );
         }
 
@@ -149,7 +149,7 @@ class OptemizDashboard {
      */
     function updateData() {
 
-		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'nonce' ) ) {
+		if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'opt_admin_data' ) ) {
             wp_send_json_error( __('Security Check Failed') );
         }
 
@@ -162,7 +162,7 @@ class OptemizDashboard {
         }
 
         $data 	= [];
-        $key 	= wp_unslash($_POST['key']);
+        $key 	= sanitize_text_field(wp_unslash($_POST['key']));
         $value 	= sanitize_text_field($_POST['value']);
 
         $updated = update_option($key, json_encode($value));
