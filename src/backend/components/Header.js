@@ -6,13 +6,11 @@ import { Fragment, useState, useEffect } from "@wordpress/element";
 
 export default function Header() {
 
-    const [apiData, setApiData] = useState({});
+    if(opt_dashboard_data.settings.args.header === false) {
+        return;
+    }
 
     let opt_header = opt_dashboard_data.settings.header;
-
-    console.log('from the header'); 
-    console.log(opt_dashboard_data); 
-
 
     return (
         <header className="opt-top-bar">
@@ -21,6 +19,7 @@ export default function Header() {
                 <img className="icon_wrapper" src={ opt_dashboard_data.plugin_url + "/assets/images/icon_wrapper.png" } alt="" />
                 <h4 className="top-bar-content">{ opt_header.heading } <span className="opt-topbar-version">{ opt_header.version }</span></h4>
             </div>
+            
             { ( opt_header.buttons.upgrade_to_pro && (
                 <div className="opt-top-right-side">
                     <a className="top-bar-btn" href={ opt_header.buttons.upgrade_to_pro.url  }>

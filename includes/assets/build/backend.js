@@ -3483,10 +3483,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Header() {
-  const [apiData, setApiData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)({});
+  if (opt_dashboard_data.settings.args.header === false) {
+    return;
+  }
   let opt_header = opt_dashboard_data.settings.header;
-  console.log('from the header');
-  console.log(opt_dashboard_data);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("header", {
     className: "opt-top-bar",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
