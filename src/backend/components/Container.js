@@ -47,7 +47,7 @@ export default function Container() {
 
                     if( data.success ) {
                         if( data.data.values.length > 0 ) {
-                            dataValueObj = JSON.parse(data.data.values);
+                            dataValueObj = data.data.values;
                         }
                     }
 

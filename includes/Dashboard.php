@@ -206,7 +206,7 @@ class Dashboard {
         $key 	= sanitize_text_field(wp_unslash($_POST['key']));
         $value 	= $_POST['value'];
 
-        $updated = update_option($key, json_encode($value));
+        $updated = update_option($key, $value);
 
         if( $updated ) {
             $data['msg'] = __("settings udpated");
