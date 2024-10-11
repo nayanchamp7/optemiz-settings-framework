@@ -10,7 +10,8 @@
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start"
+    "rimraf": "./node_modules/rimraf/bin.js",
+    "start": "rimraf build && wp-scripts start --webpack-copy-php --experimental-modules"
   },
   "author": "optemiz",
   "license": "ISC",
@@ -42,8 +43,28 @@
     "sass": "^1.43.5"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^23.4.0",
+    "@woocommerce/dependency-extraction-webpack-plugin": "^2.4.0",
+    "@woocommerce/eslint-plugin": "^2.2.0",
+    "@wordpress/base-styles": "^5.6.0",
+    "@wordpress/blocks": "^13.6.0",
+    "@wordpress/browserslist-config": "^6.6.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.6.0",
+    "@wordpress/i18n": "^5.6.0",
+    "@wordpress/prettier-config": "^4.6.0",
+    "@wordpress/scripts": "^28.6.0",
+    "@wordpress/stylelint-config": "^22.6.0",
+    "ajv": "^7.2.4",
+    "eslint": "^8.52.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-import-resolver-webpack": "0.13.8",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.13.0",
+    "fs-extra": "^11.1.1",
     "gulp-util": "^3.0.8",
-    "mini-css-extract-plugin": "^2.7.5"
+    "mini-css-extract-plugin": "^2.7.5",
+    "prettier": "npm:wp-prettier@latest",
+    "rimraf": "3.0.2",
+    "webpack-remove-empty-scripts": "^1.0.4"
   }
 }
