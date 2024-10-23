@@ -3550,6 +3550,9 @@ __webpack_require__.r(__webpack_exports__);
   const [apiData, setApiData] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)({});
   let opt_sidebar = opt_dashboard_data.settings.sidebar;
   function sidebarItems() {
+    if (!('items' in opt_sidebar)) {
+      return;
+    }
     let items = opt_sidebar.items.map(item => {
       let email_subscribe_input = "";
       if (item.type === "subscribe") {

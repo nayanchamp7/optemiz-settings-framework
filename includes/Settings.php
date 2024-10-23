@@ -209,7 +209,7 @@ if ( ! class_exists( '\Optemiz\Dashboard\Settings' ) ) {
          *
          * @return void
          */
-        private function adminInit() {
+        public function adminInit() {
             add_action('wp_ajax_opt_get_settings_data', [$this, 'getData']);
             add_action('wp_ajax_opt_update_settings_data', [$this, 'updateData']);
         }
@@ -219,7 +219,7 @@ if ( ! class_exists( '\Optemiz\Dashboard\Settings' ) ) {
          *
          * @return void
          */
-        private function getData() {
+        public function getData() {
     
             if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'opt_admin_data' ) ) {
                 wp_send_json_error( __('Security Check Failed') );
@@ -248,7 +248,7 @@ if ( ! class_exists( '\Optemiz\Dashboard\Settings' ) ) {
          *
          * @return void
          */
-        private function updateData() {
+        public function updateData() {
     
             if( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], 'opt_admin_data' ) ) {
                 wp_send_json_error( __('Security Check Failed') );

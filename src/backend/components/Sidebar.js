@@ -10,6 +10,10 @@ export default function () {
 
     function sidebarItems() {
 
+        if ( !('items' in opt_sidebar) ) {
+            return;
+        }
+        
         let items = opt_sidebar.items.map( (item) => {
 
             let email_subscribe_input = "";
