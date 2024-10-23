@@ -11,6 +11,13 @@ export default function Text(props) {
     let data  = props.data;
     let value = dashboardContext.dataValue[data.name];
 
+    console.log(dashboardContext.dataValue);
+    
+    console.log("input name: ");
+    console.log(data.name);
+    console.log("value: ");
+    console.log(value);
+
     return (
         <>
             <input

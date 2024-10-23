@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'optemiz/dashboard',
-        'pretty_version' => '1.0.5',
-        'version' => '1.0.5.0',
+        'pretty_version' => '1.0.7',
+        'version' => '1.0.7.0',
         'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
@@ -11,8 +11,8 @@
     ),
     'versions' => array(
         'optemiz/dashboard' => array(
-            'pretty_version' => '1.0.5',
-            'version' => '1.0.5.0',
+            'pretty_version' => '1.0.7',
+            'version' => '1.0.7.0',
             'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',

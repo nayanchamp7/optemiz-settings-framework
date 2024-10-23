@@ -31,8 +31,8 @@ export default function Container() {
         async function fetchData() {
             if( runData ) {
 
-                let defaultValues = await optGetDefaultData();
-                let parsedValue = defaultValues;
+                let defaultValues   = await optGetDefaultData();
+                let parsedValue     = defaultValues;
 
                 var data = {
                     action: 'opt_get_settings_data',
@@ -43,17 +43,14 @@ export default function Container() {
                 axios.post(opt_dashboard_data.ajaxurl, QS.stringify( data ))
                 .then( function (response) {
                     let data = response.data;
-                    let dataValueObj = {};
 
                     if( data.success ) {
-                        if( data.data.values.length > 0 ) {
-                            dataValueObj = data.data.values;
-                        }
-                    }
 
-                    // merge default values and database values
-                    if( dataValueObj ) {
-                        parsedValue = { ...defaultValues, ...dataValueObj };
+                        if( Object.keys(data.data.values).length > 0 ) {
+                            let dataValueObj = data.data.values;
+
+                            parsedValue = { ...defaultValues, ...dataValueObj };
+                        }
                     }
 
                     setDataValue(parsedValue);

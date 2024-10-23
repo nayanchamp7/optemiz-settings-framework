@@ -2626,19 +2626,14 @@ function Container() {
         };
         axios__WEBPACK_IMPORTED_MODULE_8__["default"].post(opt_dashboard_data.ajaxurl, qs__WEBPACK_IMPORTED_MODULE_9___default().stringify(data)).then(function (response) {
           let data = response.data;
-          let dataValueObj = {};
           if (data.success) {
-            if (data.data.values.length > 0) {
-              dataValueObj = data.data.values;
+            if (Object.keys(data.data.values).length > 0) {
+              let dataValueObj = data.data.values;
+              parsedValue = {
+                ...defaultValues,
+                ...dataValueObj
+              };
             }
-          }
-
-          // merge default values and database values
-          if (dataValueObj) {
-            parsedValue = {
-              ...defaultValues,
-              ...dataValueObj
-            };
           }
           setDataValue(parsedValue);
         }).catch(function (error) {
@@ -3444,6 +3439,11 @@ function Text(props) {
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
   let data = props.data;
   let value = dashboardContext.dataValue[data.name];
+  console.log(dashboardContext.dataValue);
+  console.log("input name: ");
+  console.log(data.name);
+  console.log("value: ");
+  console.log(value);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
       className: "opt-main-input",
