@@ -3617,32 +3617,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Utils */ "./src/backend/components/Utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
 //import DashboardContext from '../context/DashboardContext';
 
+
 function SubTab(props) {
   //const dashboardContext = useContext(DashboardContext);
   let tabs = props.menu_item.tabs;
   let counter = 0;
+  const params = new URLSearchParams(window.location.search);
 
   //const opt_form = dashboardContext.apiData.localData.settings.form;
-
-  //console.log(tabs);
 
   function onClickSubTab(event) {
     event.preventDefault();
     let $this = event.target;
 
-    // target value, with which we select the target content
-    let targetValue = $this.dataset.list;
+    // subtab id.
+    let subTabID = $this.dataset.list;
 
     // target content, we are going to active this content
-    let targetContent = $this.closest('.opt-main-content').querySelector("[data-content=" + targetValue + "]");
+    let targetContent = $this.closest('.opt-main-content').querySelector("[data-content=" + subTabID + "]");
 
     // selector subtab menu list active item
     let subtabActive = $this.closest('.opt-main-content-ul').querySelector(".opt-main-content-li-active");
@@ -3663,8 +3664,11 @@ function SubTab(props) {
 
     // add active class to the target content
     targetContent.classList.add("opt-field-active");
+
+    //update url params.
+    (0,_Utils__WEBPACK_IMPORTED_MODULE_3__.updateURLParams)('subtab', subTabID);
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
     className: "opt-main-content-ul",
     children: Object.keys(tabs).map(function (tab_item_key, key) {
       let tab_item = tabs[tab_item_key];
@@ -3672,11 +3676,17 @@ function SubTab(props) {
       // console.log(tab_item.menu.label);
 
       let submenu_item_classes = ['opt-main-content-li'];
-      if (counter == 0) {
+      let subTabInURL = '';
+      if (params.has('subtab')) {
+        subTabInURL = params.get('subtab');
+      }
+      if (subTabInURL === tab_item_key) {
+        submenu_item_classes.push('opt-main-content-li-active');
+      } else if (counter == 0) {
         submenu_item_classes.push('opt-main-content-li-active');
       }
       counter++;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
         className: submenu_item_classes.join(' '),
         "data-list": tab_item_key,
         onClick: onClickSubTab,
@@ -3752,19 +3762,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/DashboardContext */ "./src/backend/context/DashboardContext.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Utils */ "./src/backend/components/Utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
 
 
 function Tab() {
-  //const [apiData, setApiData] = useState({});
-
   const dashboardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useContext)(_context_DashboardContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
   const opt_settings = dashboardContext.apiData.localData.settings;
   const opt_form = opt_settings.form;
+  const params = new URLSearchParams(window.location.search);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     function tabItems() {
       let menu_sidebar = document.querySelector('.left-sidebar .opt-settings-sidebar-ul');
@@ -3773,18 +3784,28 @@ function Tab() {
       let menu_list = Object.keys(menu_list_items).map(key => {
         let menu_list_item = menu_list_items[key];
         let menu_item_classes = ['opt-settings-sidebar-li'];
-        if (counter == 0) {
+        let tabInURL = '';
+        if (params.has('tab')) {
+          tabInURL = params.get('tab');
+        }
+        if (tabInURL === key) {
+          menu_item_classes.push('opt-settings-sidebar-li-active');
+        } else if (counter == 0) {
           menu_item_classes.push('opt-settings-sidebar-li-active');
         }
+        let tabIcon = opt_dashboard_data.plugin_url + "/assets/images/general.png";
+        if (icon in menu_list_item.menu) {
+          tabIcon = opt_dashboard_data.plugin_url + "/assets/images/" + menu_list_item.menu.icon + ".svg";
+        }
         counter++;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("li", {
           className: menu_item_classes.join(' '),
           "data-main-menu": key,
           onClick: onClickTab,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-            src: opt_dashboard_data.plugin_url + "/assets/images/" + menu_list_item.menu.icon + ".svg",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+            src: tabIcon,
             alt: ""
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "opt-sidebar-text",
             children: menu_list_item.menu.label
           })]
@@ -3799,14 +3820,14 @@ function Tab() {
     event.stopPropagation();
     let $this = event.target;
     let currentItem = $this.closest('.opt-settings-sidebar-li');
-    let leftSidebarTargetValue = currentItem.dataset.mainMenu;
-    let leftSidebarTargetContent = document.querySelector("[data-main-content=" + leftSidebarTargetValue + "]");
-    let leftContentActive = document.querySelector(".opt-main-content-active");
-    leftContentActive.classList.remove("opt-main-content-active");
-    leftSidebarTargetContent.classList.add("opt-main-content-active");
+    let tabID = currentItem.dataset.mainMenu;
+    let tabContent = document.querySelector("[data-main-content=" + tabID + "]");
+    let tabContentActive = document.querySelector(".opt-main-content-active");
+    tabContentActive.classList.remove("opt-main-content-active");
+    tabContent.classList.add("opt-main-content-active");
 
     // target content first item active
-    let tabActiveItem = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li-active');
+    let tabActiveItem = tabContent.querySelector('.opt-main-content-ul .opt-main-content-li-active');
 
     // when active class is available, remove the active class
     if (tabActiveItem) {
@@ -3814,7 +3835,7 @@ function Tab() {
     }
 
     // get the first tab item of the target menu item
-    let targetFirstTab = leftSidebarTargetContent.querySelector('.opt-main-content-ul .opt-main-content-li:first-child');
+    let targetFirstTab = tabContent.querySelector('.opt-main-content-ul .opt-main-content-li:first-child');
 
     // add active class to the first tab of the target menu item
     targetFirstTab.classList.add('opt-main-content-li-active');
@@ -3827,13 +3848,16 @@ function Tab() {
 
     // add active class to the target menu
     currentItem.classList.add('opt-settings-sidebar-li-active');
+
+    //update url params.
+    (0,_Utils__WEBPACK_IMPORTED_MODULE_4__.updateURLParams)('tab', tabID);
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "left-sidebar",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
       className: "left-sidebar-heading",
       children: opt_settings.args.panel_title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("ul", {
       className: "opt-settings-sidebar-ul"
     })]
   });
@@ -3893,6 +3917,43 @@ function TabContent(props) {
       field_content: tabs
     })]
   });
+}
+
+/***/ }),
+
+/***/ "./src/backend/components/Utils.js":
+/*!*****************************************!*\
+  !*** ./src/backend/components/Utils.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   updateURLParams: () => (/* binding */ updateURLParams)
+/* harmony export */ });
+/**
+ * Update URL parameter.
+ *
+ * @param {string} param url parameter.
+ * @param {string} value parameter value.
+ */
+function updateURLParams(param, value) {
+  // Get the current URL
+  const url = new URL(window.location);
+  if (value.length === 0) {
+    url.searchParams.delete(param);
+  } else {
+    // Update or add the parameter, avoiding duplicates
+    if (url.searchParams.has(param)) {
+      url.searchParams.set(param, value); // Update the existing parameter
+    } else {
+      url.searchParams.append(param, value); // Add the parameter if not exists
+    }
+  }
+
+  // Update the browser's URL without refreshing
+  window.history.pushState({}, '', url);
 }
 
 /***/ }),

@@ -39,11 +39,16 @@ export default function Tab() {
                     menu_item_classes.push('opt-settings-sidebar-li-active');
                 }
 
+                let tabIcon = opt_dashboard_data.plugin_url + "/assets/images/general.png";
+                if(icon in menu_list_item.menu) {
+                    tabIcon = opt_dashboard_data.plugin_url + "/assets/images/"+ menu_list_item.menu.icon +".svg";
+                }
+
                 counter++;
 
                 return (
                     <li className={ menu_item_classes.join(' ') } data-main-menu={key} onClick={onClickTab}>
-                        <img src={ opt_dashboard_data.plugin_url + "/assets/images/"+ menu_list_item.menu.icon +".svg" } alt="" />
+                        <img src={ tabIcon } alt="" />
                         <span className="opt-sidebar-text">{ menu_list_item.menu.label }</span>
                     </li>
                 )
