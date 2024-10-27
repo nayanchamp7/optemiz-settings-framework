@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/backend/style.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
 * {
   margin: 0;
   padding: 0;
@@ -53,7 +56,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.opt-main-container .opt-top-bar .opt-top-left-side .logo {
+.opt-main-container .opt-top-bar .opt-top-left-side .opt-settings-header-logo {
   height: 64px;
   width: 64px;
   cursor: pointer;
@@ -111,7 +114,7 @@
   line-height: 17px;
   color: #2F0154;
 }
-.opt-main-container .opt-body .opt-body-left-child .left-sidebar .sidebar-ul .sidebar-li {
+.opt-main-container .opt-body .opt-body-left-child .left-sidebar .opt-settings-sidebar-ul .opt-settings-sidebar-li {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -121,10 +124,10 @@
   margin-top: 24px;
   cursor: pointer;
 }
-.opt-main-container .opt-body .opt-body-left-child .left-sidebar .sidebar-ul .sidebar-li.sidebar-li-active {
+.opt-main-container .opt-body .opt-body-left-child .left-sidebar .opt-settings-sidebar-ul .opt-settings-sidebar-li.opt-settings-sidebar-li-active {
   background: #FFFFFF;
 }
-.opt-main-container .opt-body .opt-body-left-child .left-sidebar .sidebar-ul .sidebar-li.sidebar-li-active .opt-sidebar-text {
+.opt-main-container .opt-body .opt-body-left-child .left-sidebar .opt-settings-sidebar-ul .opt-settings-sidebar-li.opt-settings-sidebar-li-active .opt-sidebar-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -132,10 +135,10 @@
   line-height: 19px;
   color: #005be6;
 }
-.opt-main-container .opt-body .opt-body-left-child .left-sidebar .sidebar-ul .sidebar-li img {
+.opt-main-container .opt-body .opt-body-left-child .left-sidebar .opt-settings-sidebar-ul .opt-settings-sidebar-li img {
   width: 24px;
 }
-.opt-main-container .opt-body .opt-body-left-child .left-sidebar .sidebar-ul .sidebar-li .opt-sidebar-text {
+.opt-main-container .opt-body .opt-body-left-child .left-sidebar .opt-settings-sidebar-ul .opt-settings-sidebar-li .opt-sidebar-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -460,7 +463,7 @@
 }
 .opt-input-section .opt-input-container .opt-in-form .opt-input-items .opt-input-email {
   padding-left: 44px;
-  background: url("../images/email-2.png") no-repeat left;
+  background: url(images/email-2.8bf34e38.png) no-repeat left;
   background-position: left 15px center;
   background-size: 20px;
   background-color: #F7F8F9;
@@ -475,7 +478,7 @@
 }
 .opt-input-section .opt-input-container .opt-in-form .opt-input-items .opt-input-color {
   -webkit-appearance: none;
-  background: url(images/color.png) no-repeat left;
+  background: url(images/color.35ae322e.png) no-repeat left;
   background-position: right 12px center;
   background-size: 20px;
   padding-right: 44px;
@@ -508,4 +511,6 @@
 .opt-input-section .opt-right-line-through-items .opt-line-through {
   text-decoration-line: line-through;
   color: #B5C7D5;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style-backend.css.map*/

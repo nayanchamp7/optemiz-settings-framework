@@ -1,4 +1,13 @@
-@import './variables';
+$base-color: #005be6;
+$base-color-purple: #771CC4;
+$top-bar-btn : #680DB4;
+$main-bg: #EDF1F5;
+$white-bg: #ffffff;
+$font-color:#38424F;
+$btn-bg-color-light: #ecf4ff;
+$btn-bg-color-light-purple: #F6ECFF;
+$btn-bg-hover-color-light: #d5e2f4;
+$btn-bg-hover-color-light-purple: #e6d3f7;
 
 *{
     margin: 0;
@@ -106,6 +115,7 @@
                 padding-right: 24px;
                 background: #F7F8F9;
                 border-radius: 0px 4px 0px 0px;
+
                 .left-sidebar-heading{
                     width: 92px;
                     height: 17px;
@@ -116,7 +126,9 @@
                     line-height: 17px;
                     color:#2F0154;
                 }
+
                 .opt-settings-sidebar-ul{
+
                     .opt-settings-sidebar-li{
                         display: flex;
                         align-items: center;
@@ -523,7 +535,7 @@
 
                 .opt-input-email{
                     padding-left: 44px;
-                    background: url("../images/email-2.png") no-repeat left;
+                    background: url("./images/email-2.png") no-repeat left;
                     background-position: left 15px center;
                     background-size: 20px;
                     background-color: #F7F8F9;

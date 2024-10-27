@@ -3,7 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Container from './components/Container'
-// import Dummy from './components/Dummy'
+
+/**
+ * Import the stylesheet
+ */
+import './style.scss';
+
 
 window.addEventListener( 'DOMContentLoaded', function () {
 

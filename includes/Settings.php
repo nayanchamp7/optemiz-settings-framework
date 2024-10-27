@@ -180,7 +180,7 @@ if ( ! class_exists( '\Optemiz\Dashboard\Settings' ) ) {
             ];
     
             //enqueue settings styles
-            wp_enqueue_style('opt-dashboard-style', OSF_URL . '/assets/admin/css/style.css' );
+            wp_enqueue_style('opt-dashboard-style', OSF_URL . '/assets/build/style-backend.css' );
             wp_enqueue_style('opt-dashboard-select2-style', OSF_URL . '/assets/admin/css/select2.min.css' );
             wp_enqueue_style( 'opt-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap', [], null );
     

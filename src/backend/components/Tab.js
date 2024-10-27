@@ -39,10 +39,13 @@ export default function Tab() {
                     menu_item_classes.push('opt-settings-sidebar-li-active');
                 }
 
+                console.log('menu list');
+                console.log(menu_list_item);
+
                 let tabIcon = opt_dashboard_data.plugin_url + "/assets/images/general.png";
-                if(icon in menu_list_item.menu) {
-                    tabIcon = opt_dashboard_data.plugin_url + "/assets/images/"+ menu_list_item.menu.icon +".svg";
-                }
+                // if('icon' in menu_list_item.menu) {
+                //     tabIcon = opt_dashboard_data.plugin_url + "/assets/images/"+ menu_list_item.menu.icon +".svg";
+                // }
 
                 counter++;
 
