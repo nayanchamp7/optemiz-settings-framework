@@ -18,8 +18,13 @@ export default function Tab() {
 
         function tabItems() {
             let menu_sidebar = document.querySelector('.left-sidebar .opt-settings-sidebar-ul');
-
             let menu_list_items = opt_form.items;
+
+            let activeTab = document.querySelector('.opt-settings-sidebar-li-active');
+
+            if(activeTab) {
+                activeTab.classList.remove('opt-settings-sidebar-li-active');
+            }
 
             let counter = 0;
             let menu_list = Object.keys(menu_list_items).map( (key) => {
