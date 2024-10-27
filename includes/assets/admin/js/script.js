@@ -46,7 +46,7 @@
 
         //  Left side bar tab
 
-        var optLeftLists = document.querySelectorAll(".sidebar-li");
+        var optLeftLists = document.querySelectorAll(".opt-settings-sidebar-li");
 
         // convert to array
         var optLeftListsArr = Array.from(optLeftLists);
@@ -83,13 +83,13 @@
 
 
             // selector subtab menu list active item
-            var mainTabActive = document.querySelector(".sidebar-li-active");
+            var mainTabActive = document.querySelector(".opt-settings-sidebar-li-active");
 
             //remove subtab menu list's active class
-            mainTabActive.classList.remove("sidebar-li-active");
+            mainTabActive.classList.remove("opt-settings-sidebar-li-active");
 
             // add active class to the target menu
-            this.classList.add('sidebar-li-active');
+            this.classList.add('opt-settings-sidebar-li-active');
 
         }
     });

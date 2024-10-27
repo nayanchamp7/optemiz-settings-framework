@@ -4,28 +4,27 @@ import ReactDOM from 'react-dom'
 import { Fragment, useState, useEffect, useContext } from "@wordpress/element";
 
 //import DashboardContext from '../context/DashboardContext';
+import { updateURLParams } from './Utils';
 
 export default function SubTab(props) {
 
     //const dashboardContext = useContext(DashboardContext);
-    let tabs    = props.menu_item.tabs;
-    let counter = 0;
+    let tabs        = props.menu_item.tabs;
+    let counter     = 0;
+    const params    = new URLSearchParams( window.location.search );
 
     //const opt_form = dashboardContext.apiData.localData.settings.form;
-
-    //console.log(tabs);
-
 
     function onClickSubTab(event){
         event.preventDefault();
 
         let $this = event.target;
 
-        // target value, with which we select the target content
-        let targetValue    = $this.dataset.list;
+        // subtab id.
+        let subTabID    = $this.dataset.list;
 
         // target content, we are going to active this content
-        let targetContent  = $this.closest('.opt-main-content').querySelector("[data-content="+ targetValue + "]");
+        let targetContent  = $this.closest('.opt-main-content').querySelector("[data-content="+ subTabID + "]");
 
         // selector subtab menu list active item
         let subtabActive  = $this.closest('.opt-main-content-ul').querySelector(".opt-main-content-li-active");
@@ -46,8 +45,10 @@ export default function SubTab(props) {
 
         // add active class to the target content
         targetContent.classList.add("opt-field-active");
-    }
 
+        //update url params.
+        updateURLParams( 'subtab', subTabID );
+    }
 
     return (
         <ul className="opt-main-content-ul">
@@ -60,7 +61,15 @@ export default function SubTab(props) {
                     // console.log(tab_item.menu.label);
 
                     let submenu_item_classes = ['opt-main-content-li'];
-                    if( counter == 0 ) {
+
+                    let subTabInURL = '';
+                    if ( params.has( 'subtab' ) ) {
+                        subTabInURL = params.get( 'subtab' );
+                    }
+
+                    if(subTabInURL === tab_item_key) {
+                        submenu_item_classes.push('opt-main-content-li-active');
+                    } else if( counter == 0 ) {
                         submenu_item_classes.push('opt-main-content-li-active');
                     }
 

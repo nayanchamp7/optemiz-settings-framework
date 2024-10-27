@@ -56,7 +56,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            .logo{
+            .opt-settings-header-logo{
                 height: 64px;
                 width: 64px;
                 cursor: pointer;
@@ -116,8 +116,8 @@
                     line-height: 17px;
                     color:#2F0154;
                 }
-                .sidebar-ul{
-                    .sidebar-li{
+                .opt-settings-sidebar-ul{
+                    .opt-settings-sidebar-li{
                         display: flex;
                         align-items: center;
                         flex-direction: row;
@@ -127,7 +127,7 @@
                         margin-top: 24px;
                         cursor: pointer;
 
-                        &.sidebar-li-active{
+                        &.opt-settings-sidebar-li-active{
                             background: #FFFFFF;
 
                             .opt-sidebar-text{
@@ -136,7 +136,7 @@
                                 font-weight: 600;
                                 font-size: 16px;
                                 line-height: 19px;
-                                color:$base-color;
+                                color: $base-color;
                             }
 
                         }

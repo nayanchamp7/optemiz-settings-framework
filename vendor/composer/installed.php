@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'optemiz/dashboard',
-        'pretty_version' => '1.0.7',
-        'version' => '1.0.7.0',
-        'reference' => null,
+        'pretty_version' => '1.0.8',
+        'version' => '1.0.8.0',
+        'reference' => NULL,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'optemiz/dashboard' => array(
-            'pretty_version' => '1.0.7',
-            'version' => '1.0.7.0',
-            'reference' => null,
+            'pretty_version' => '1.0.8',
+            'version' => '1.0.8.0',
+            'reference' => NULL,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

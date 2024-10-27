@@ -3136,7 +3136,7 @@ function Header() {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "opt-top-left-side"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "logo",
+    className: "opt-settings-header-logo",
     src: opt_dashboard_data.plugin_url + "/assets/images/xplainer.png",
     alt: ""
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
@@ -3381,14 +3381,14 @@ function Tab() {
   const opt_form = opt_settings.form;
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     function tabItems() {
-      let menu_sidebar = document.querySelector('.left-sidebar .sidebar-ul');
+      let menu_sidebar = document.querySelector('.left-sidebar .opt-settings-sidebar-ul');
       let menu_list_items = opt_form.items;
       let counter = 0;
       let menu_list = Object.keys(menu_list_items).map(key => {
         let menu_list_item = menu_list_items[key];
-        let menu_item_classes = ['sidebar-li'];
+        let menu_item_classes = ['opt-settings-sidebar-li'];
         if (counter == 0) {
-          menu_item_classes.push('sidebar-li-active');
+          menu_item_classes.push('opt-settings-sidebar-li-active');
         }
         counter++;
         return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
@@ -3410,7 +3410,7 @@ function Tab() {
     event.preventDefault();
     event.stopPropagation();
     let $this = event.target;
-    let currentItem = $this.closest('.sidebar-li');
+    let currentItem = $this.closest('.opt-settings-sidebar-li');
     let leftSidebarTargetValue = currentItem.dataset.mainMenu;
     let leftSidebarTargetContent = document.querySelector("[data-main-content=" + leftSidebarTargetValue + "]");
     let leftContentActive = document.querySelector(".opt-main-content-active");
@@ -3432,20 +3432,20 @@ function Tab() {
     targetFirstTab.classList.add('opt-main-content-li-active');
 
     // selector subtab menu list active item
-    let mainTabActive = document.querySelector(".sidebar-li-active");
+    let mainTabActive = document.querySelector(".opt-settings-sidebar-li-active");
 
     //remove subtab menu list's active class
-    mainTabActive.classList.remove("sidebar-li-active");
+    mainTabActive.classList.remove("opt-settings-sidebar-li-active");
 
     // add active class to the target menu
-    currentItem.classList.add('sidebar-li-active');
+    currentItem.classList.add('opt-settings-sidebar-li-active');
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "left-sidebar"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
     className: "left-sidebar-heading"
   }, opt_settings.args.panel_title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
-    className: "sidebar-ul"
+    className: "opt-settings-sidebar-ul"
   }));
 }
 

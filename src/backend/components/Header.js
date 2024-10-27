@@ -15,7 +15,7 @@ export default function Header() {
     return (
         <header className="opt-top-bar">
             <div className="opt-top-left-side">
-                <img className="logo" src={ opt_dashboard_data.plugin_url + "/assets/images/xplainer.png" } alt="" />
+                <img className="opt-settings-header-logo" src={ opt_dashboard_data.plugin_url + "/assets/images/xplainer.png" } alt="" />
                 <img className="icon_wrapper" src={ opt_dashboard_data.plugin_url + "/assets/images/icon_wrapper.png" } alt="" />
                 <h4 className="top-bar-content">{ opt_header.heading } <span className="opt-topbar-version">{ opt_header.version }</span></h4>
             </div>

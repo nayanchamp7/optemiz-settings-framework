@@ -381,7 +381,7 @@ function Header() {
     children: [/*#__PURE__*/Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react/jsx-runtime'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())("div", {
       className: "opt-top-left-side",
       children: [/*#__PURE__*/Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react/jsx-runtime'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())("img", {
-        className: "logo",
+        className: "opt-settings-header-logo",
         src: opt_dashboard_data.plugin_url + "/assets/images/xplainer.png",
         alt: ""
       }), /*#__PURE__*/Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react/jsx-runtime'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())("img", {
