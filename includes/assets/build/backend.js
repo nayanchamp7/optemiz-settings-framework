@@ -3779,7 +3779,7 @@ function Tab() {
           "data-main-menu": key,
           onClick: onClickTab,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-            src: opt_dashboard_data.plugin_url + "/assets/images/" + key + ".svg",
+            src: opt_dashboard_data.plugin_url + "/assets/images/" + menu_list_item.menu.icon + ".svg",
             alt: ""
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             className: "opt-sidebar-text",

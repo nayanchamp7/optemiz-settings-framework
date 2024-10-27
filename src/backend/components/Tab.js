@@ -36,7 +36,7 @@ export default function Tab() {
 
                 return (
                     <li className={ menu_item_classes.join(' ') } data-main-menu={key} onClick={onClickTab}>
-                        <img src={ opt_dashboard_data.plugin_url + "/assets/images/"+ key +".svg" } alt="" />
+                        <img src={ opt_dashboard_data.plugin_url + "/assets/images/"+ menu_list_item.menu.icon +".svg" } alt="" />
                         <span className="opt-sidebar-text">{ menu_list_item.menu.label }</span>
                     </li>
                 )
