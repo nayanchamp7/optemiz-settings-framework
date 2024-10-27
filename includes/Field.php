@@ -7,46 +7,53 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Class Field
  */
-class Field {
+if ( ! class_exists( '\Optemiz\Dashboard\Field' ) ) {
+    class Field {
 
-    /**
-     * Field constructor.
-     *
-     * @param string|null $key  Sub tab key.
-     * @param array|string|null $args  Arguments array.
-     *
-     */
-    public function __construct( $key = null, $args = array() ) {
+        /**
+         * Settings id.
+         *
+         * @var string
+         */
+        public $settings_id;
 
-        if( empty($key) ) {
-            return;
+        /**
+         * Settings object.
+         *
+         * @var Settings
+         */
+        public $settings_obj;
+    
+        /**
+         * Field constructor.
+         *
+         */
+        public function __construct($settings_id, $settings) {
+            $this->settings_id  = $settings_id;
+            $this->settings_obj = $settings;
         }
-
-        $this->key      = is_string($key) ? strtolower($key) : $key;
-        $this->args     = wp_parse_args($args, $this->defaults());
+    
+        /**
+         * Set Sub Tab.
+         *
+         * @return array
+         */
+        public function set($tab_key, $sub_tab_key, $fields) {
+            $this->settings_obj->settings['form']['items'][$tab_key]['tabs'][$sub_tab_key]['fields'] = $fields;
+        }
+    
+        /**
+         * Returns Field's Default Value.
+         *
+         * @return array
+         */
+        protected function defaults() {
+            $defaults = array(
+                'label' => __("Initialization"),
+                'classes' => [],
+            );
+    
+            return apply_filters("filter_opt_field_{$this->settings_id}_default_values", $defaults, $this->settings_id);
+        }
     }
-
-    /**
-	 * Set Sub Tab.
-	 *
-	 * @return array
-	 */
-	public static function set($tab_key, $sub_tab_key, $fields) {
-        $opt_settings = Settings::instance();
-        $opt_settings::$settings['form']['items'][$tab_key]['tabs'][$sub_tab_key]['fields'] = $fields;
-	}
-
-    /**
-	 * Returns Field's Default Value.
-	 *
-	 * @return array
-	 */
-	protected function defaults() {
-        $defaults = array(
-			'label' => __("Initialization"),
-			'classes' => [],
-		);
-
-		return apply_filters("filter_opt_subtab_{$this->key}_default_values", $defaults, $this->key);
-	}
 }
